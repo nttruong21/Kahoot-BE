@@ -1,0 +1,51 @@
+paths:
+  /api/v1/auth/signup/send-otp:
+    post:
+      summary: Send otp when sign up
+      description: Send otp when sign up
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendOtpWhenSignUpBodyData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/SendOtpWhenSignUpResponse'
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 400
+                success: false
+                data: {}
+                message: Invalid email
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

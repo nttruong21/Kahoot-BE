@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        success:
+          type: boolean
+        data:
+          type: object
+        message:
+          type: string
+      required:
+        - message
+        - code
+        - data
+        - success

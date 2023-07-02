@@ -1,0 +1,65 @@
+components:
+  schemas:
+    # [Body data] Sending otp when sign up
+    SendOtpWhenSignUpBodyData:
+      type: object
+      description: Send otp when sign up body data
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+        - email
+
+    # [Response] Sending otp when sign up
+    SendOtpWhenSignUpResponse:
+      type: object
+      description: Send otp when sign up response
+      properties:
+        email:
+          type: string
+          format: email
+        otp:
+          type: string
+        expired:
+          type: number
+
+    # [Body data] Verify email when sign up
+    VerifyOtpWhenSignUpBodyData:
+      type: object
+      description: Verify otp when sign up
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        username:
+          type: string
+        otp:
+          type: string
+      required:
+        - email
+        - password
+        - username
+        - otp
+
+    # [Response] Verify email when sign up
+    VerifyOtpWhenSignUpResponse:
+      type: object
+      description: Verify otp when sign up response
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        username:
+          type: string
+        image:
+          type: string
+        created_at:
+          type: number
+        access_token:
+          type: string
+        refresh_token:
+          type: string

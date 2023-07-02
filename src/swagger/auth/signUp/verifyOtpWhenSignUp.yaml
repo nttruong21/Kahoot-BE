@@ -1,0 +1,51 @@
+paths:
+  /api/v1/auth/signup/verify-otp:
+    post:
+      summary: Verify otp when sign up
+      description: Verify otp when sign up
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyOtpWhenSignUpBodyData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/VerifyOtpWhenSignUpResponse'
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 400
+                success: false
+                data: {}
+                message: Invalid email
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error
