@@ -1,5 +1,6 @@
 import logging from '~/utils/logging.util'
 import { executeQuery } from '~/configs/database.config'
+import { OtpModel } from '~/models/otp.model'
 
 const getLastOtpService = async (email: String, otp?: string) => {
   try {
@@ -7,7 +8,7 @@ const getLastOtpService = async (email: String, otp?: string) => {
       ? 'SELECT * FROM otps WHERE email = ? AND otp = ? ORDER BY expired DESC LIMIT 1'
       : 'SELECT * FROM otps WHERE email = ? ORDER BY expired DESC LIMIT 1'
     const params = otp ? [email, otp] : [email]
-    const response = await executeQuery(query, params)
+    const response = await executeQuery<OtpModel[]>(query, params)
     return response[0]
   } catch (error) {
     logging.error('Get last otp by email service has error: ', error)

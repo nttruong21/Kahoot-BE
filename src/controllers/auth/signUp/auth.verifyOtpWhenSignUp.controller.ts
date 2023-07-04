@@ -5,12 +5,12 @@ import bcrypt from 'bcryptjs'
 
 import logging from '~/utils/logging.util'
 import { removeDots } from '~/utils/email.util'
-import setTokenCookie from '~/utils/setTokenCookie.util'
 import * as accountServices from '~/services/account/account.index.service'
 import * as userServices from '~/services/user/user.index.service'
 import * as jwtServices from '~/services/jwt/jwt.index.service'
 import * as otpServices from '~/services/otp/otp.index.service'
 import { TokenPayload } from '~/types/tokenPayload.type'
+import { AccountType } from '~/enums/account.enum'
 
 type RequestBody = {
   email: string
@@ -63,10 +63,23 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
       return next(createError(400, 'Otp expired'))
     }
 
+    // Check username was existed
+    const user = await userServices.getUser({ username: username })
+    if (user) {
+      return next(createError(400, 'Username is being used'))
+    }
+
     // Create account
     const bcryptPassword = await bcrypt.hash(password, 12)
     const dateNow = new Date()
-    const accountId = await accountServices.createAccount(email, bcryptPassword, dateNow)
+    const accountId = await accountServices.createAccount(AccountType.email, {
+      email,
+      password: bcryptPassword,
+      date: dateNow
+    })
+    if (!accountId) {
+      return next(createError(500))
+    }
 
     // Create user
     await userServices.createUser(accountId, username, '/images/default-avt.jpg', dateNow)
@@ -78,8 +91,6 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
     const accessToken = await jwtServices.signAccessTokenService(payload)
     const refreshToken = await jwtServices.signRefreshTokenService(payload)
 
-    // Set cookie
-    setTokenCookie(res, accessToken, refreshToken)
     // Success response
     return res.status(201).json({
       code: 201,

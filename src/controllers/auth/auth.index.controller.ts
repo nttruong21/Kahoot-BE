@@ -1,12 +1,13 @@
-import emailSignInController from './auth.emailSignIn.controller'
-import facebookSignInController from './auth.facebookSignIn.controller'
-import googleSignInController from './auth.googleSignIn.controller'
-import signOutController from './auth.signOut.controller'
-import refreshAccessTokenController from './auth.refreshAccessToken.controller'
+import emailSignInController from './signIn/auth.emailSignIn.controller'
+import facebookSignInController from './signIn/auth.facebookSignIn.controller'
+import googleSignInController from './signIn/auth.googleSignIn.controller'
 
 import sendOtpWhenSignUpController from './signUp/auth.sendOtpWhenSignUp.controller'
 import resendOtpWhenSignUpController from './signUp/auth.resendOtpWhenSignUp.controller'
 import verifyOtpWhenSignUpController from './signUp/auth.verifyOtpWhenSignUp.controller'
+
+import signOutController from './signOut/auth.signOut.controller'
+import refreshAccessTokenController from './token/auth.refreshAccessToken.controller'
 
 class AuthController {
   // Email/password login

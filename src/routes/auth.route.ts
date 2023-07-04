@@ -12,11 +12,7 @@ authRouter.post('/signin/email', AuthController.signInByEmail)
 authRouter.post('/signin/facebook', AuthController.signInByFacebook)
 
 // Google sign in
-authRouter.post(
-  '/signin/google',
-
-  AuthController.loginByGoogle
-)
+authRouter.post('/signin/google', AuthController.loginByGoogle)
 
 // Signup
 authRouter.post('/signup/send-otp', middlewares.validateSendingOtpRequest, AuthController.sendOtpWhenSignUp)

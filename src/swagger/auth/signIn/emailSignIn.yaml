@@ -1,0 +1,51 @@
+paths:
+  /api/v1/auth/signin/email:
+    post:
+      summary: Sign in with email
+      description: Sign in with email/password
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailSignInBodyData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/EmailSignInResponse'
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 400
+                success: false
+                data: {}
+                message: Invalid email
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

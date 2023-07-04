@@ -8,8 +8,13 @@ components:
         email:
           type: string
           format: email
+          description: do not contain space character
+        username:
+          type: string
+          description: min 6 characters, do not contain space character
       required:
         - email
+        - username
 
     # [Response] Sending otp when sign up
     SendOtpWhenSignUpResponse:
@@ -32,12 +37,17 @@ components:
         email:
           type: string
           format: email
+          description: do not contain space character
         password:
           type: string
+          description: min 6 characters, do not contain space character
         username:
           type: string
+          description: min 6 characters, do not contain space character
         otp:
           type: string
+          description: 6 number characters
+
       required:
         - email
         - password

@@ -1,0 +1,103 @@
+components:
+  schemas:
+    # [Body data] Sign in by email
+    EmailSignInBodyData:
+      type: object
+      description: Email sign in body data
+      properties:
+        email:
+          type: string
+          format: email
+          description: do not contain space character
+        password:
+          type: string
+          description: min 6 characters, do not contain space character
+      required:
+        - email
+        - password
+
+    # [Response] Sign in by email
+    EmailSignInResponse:
+      type: object
+      description: Email sign in response
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        username:
+          type: string
+        image:
+          type: string
+        created_at:
+          type: number
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+
+    # [Body data] Sign in by google
+    GoogleSignInBodyData:
+      type: object
+      description: Google sign in body data
+      properties:
+        googleId:
+          type: string
+        googleToken:
+          type: string
+      required:
+        - googleId
+        - googleToken
+
+    # [Response] Sign in by google
+    GoogleSignInResponse:
+      type: object
+      description: Google sign in response
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        username:
+          type: string
+        image:
+          type: string
+        created_at:
+          type: number
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+
+    # [Body data] Sign in by facebook
+    FacebookSignInBodyData:
+      type: object
+      description: Facebook sign in body data
+      properties:
+        facebookId:
+          type: string
+        facebookToken:
+          type: string
+      required:
+        - facebookId
+        - facebookToken
+
+    # [Response] Sign in by Facebook
+    FacebookSignInResponse:
+      type: object
+      description: Facebook sign in response
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        username:
+          type: string
+        image:
+          type: string
+        created_at:
+          type: number
+        access_token:
+          type: string
+        refresh_token:
+          type: string

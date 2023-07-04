@@ -1,0 +1,18 @@
+components:
+  schemas:
+    # [Body data] Sign out body data
+    SignOutBodyData:
+      type: object
+      description: Refresh access token body data
+      properties:
+        refreshToken:
+          type: string
+          description: do not contain space character
+      required:
+        - refreshToken
+
+    # [Response] Sign out response
+    SignOutResponse:
+      type: object
+      description: Refresh access token response
+      properties:

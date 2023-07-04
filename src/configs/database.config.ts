@@ -29,13 +29,13 @@ export const getConnection = async () => {
   }
 }
 
-export const executeQuery = async (query: string, params: any[] = []) => {
+export const executeQuery = async <T>(query: string, params: any[] = []): Promise<T> => {
   try {
     const conn = await getConnection()
     if (!conn) {
       throw 'Can not connect to the database'
     }
-    const res = await conn.query(query, params)
+    const res = await conn.query<T>(query, params)
     return res
   } catch (error: any) {
     switch (error.code) {
@@ -49,7 +49,7 @@ export const executeQuery = async (query: string, params: any[] = []) => {
           return res
         } catch (error: any) {
           logging.error(`[Database] ${error.message}`)
-          return null
+          return error.code
         }
       case 'ER_CMD_CONNECTION_CLOSED':
         logging.info('[Database] Try to reconnect to database')
@@ -61,7 +61,7 @@ export const executeQuery = async (query: string, params: any[] = []) => {
           return res
         } catch (error: any) {
           logging.error(`[Database] ${error.message}`)
-          return null
+          return error.code
         }
       case 'ER_DUP_ENTRY':
         logging.error(`[Database] ${error.code} : ${error.message}`)

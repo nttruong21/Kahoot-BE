@@ -2,24 +2,43 @@ import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import otpGenerator from 'otp-generator'
 import dayjs from 'dayjs'
+import validator from 'validator'
 
 import logging from '~/utils/logging.util'
 import { mailTransporter, getMailOptions } from '~/configs/mailer.config'
 import * as accountServices from '~/services/account/account.index.service'
+import * as userServices from '~/services/user/user.index.service'
 import * as otpServices from '~/services/otp/otp.index.service'
 
 type RequestBody = {
   email: string
+  username: string
 }
 
 const sendOtpWhenSignUpController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email } = req.body as RequestBody
+    const { email, username = '' } = req.body as RequestBody
+
+    // Validate username
+    if (
+      !validator.isByteLength(username, {
+        min: 6
+      }) ||
+      validator.contains(username, ' ')
+    ) {
+      return next(createError(400, 'Invalid username'))
+    }
 
     // Check email was existed
-    const account = await accountServices.getAccountByEmail(email)
+    const account = await accountServices.getAccount({ email })
     if (account) {
       return next(createError(400, 'Email is being used'))
+    }
+
+    // Check username was existed
+    const user = await userServices.getUser({ username: username })
+    if (user) {
+      return next(createError(400, 'Username is being used'))
     }
 
     // Create OTP string
