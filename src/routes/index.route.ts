@@ -12,6 +12,14 @@ const configRoutes = (app: Application) => {
   // Auth
   app.use('/api/v1/auth', authRouter)
 
+  app.get('/api/v1', (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json({
+      code: 200,
+      success: true,
+      message: 'Welcome to Kahoot NodeJS APIs'
+    })
+  })
+
   // Error routes
   app.use((req: Request, res: Response, next: NextFunction) => {
     return next(createError(404))
