@@ -1,15 +1,15 @@
 paths:
-  /api/v1/auth/signup/verify-otp:
+  /api/v1/auth/refresh-access-token:
     post:
-      summary: Verify otp when sign up
-      description: Verify otp when sign up
+      summary: Refresh access token
+      description: Create new access token when token expired
       tags:
         - Authentication
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VerifyOtpWhenSignUpBodyData'
+              $ref: '#/components/schemas/RefreshAccessTokenBodyData'
         required: true
       responses:
         '200':
@@ -24,7 +24,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/VerifyOtpWhenSignUpResponse'
+                    $ref: '#/components/schemas/RefreshAccessTokenResponseData'
                   message:
                     type: string
         '400':

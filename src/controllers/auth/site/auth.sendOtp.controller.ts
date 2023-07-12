@@ -10,35 +10,45 @@ import * as accountServices from '~/services/account/account.index.service'
 import * as userServices from '~/services/user/user.index.service'
 import * as otpServices from '~/services/otp/otp.index.service'
 
+// action: signup/resetpassword/resendwhensignup
+
 type RequestBody = {
+  action: string
   email: string
-  username: string
+  username?: string
 }
 
-const sendOtpWhenSignUpController = async (req: Request, res: Response, next: NextFunction) => {
+const sendOtpController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, username = '' } = req.body as RequestBody
+    const { action = '', email = '', username = '' } = req.body as RequestBody
+
+    if (action !== 'signup' && action !== 'resetpassword' && action !== 'resendwhensignup') {
+      return next(createError(400, 'Invalid action'))
+    }
 
     // Validate username
     if (
-      !validator.isByteLength(username, {
+      action === 'signup' &&
+      (!validator.isByteLength(username, {
         min: 6
       }) ||
-      validator.contains(username, ' ')
+        validator.contains(username, ' '))
     ) {
-      return next(createError(400, 'Invalid username'))
+      return next(createError(400, "Username is at least 6 characters and doesn't contain space character"))
     }
 
-    // Check email was existed
+    // Check email
     const account = await accountServices.getAccount({ email })
-    if (account) {
-      return next(createError(400, 'Email is being used'))
+    if (action === 'signup' || action === 'resendwhensignup') {
+      if (account) return next(createError(400, 'Email is being used'))
+    } else if (action === 'resetpassword') {
+      if (!account) return next(createError(400, 'Email is not being registered'))
     }
 
     // Check username was existed
-    const user = await userServices.getUser({ username: username })
-    if (user) {
-      return next(createError(400, 'Username is being used'))
+    if (action === 'signup') {
+      const user = await userServices.getUser({ username: username })
+      if (user) return next(createError(400, 'Username is being used'))
     }
 
     // Create OTP string
@@ -50,7 +60,13 @@ const sendOtpWhenSignUpController = async (req: Request, res: Response, next: Ne
     })
 
     // Mail options
-    const mailOptions = getMailOptions(email, 'Kahoot: Sign up OTP', otp)
+    const mailOptions = getMailOptions(
+      email,
+      action === 'signup' || action === 'resendwhensignup'
+        ? 'Kahoot: OTP for sign up'
+        : 'Kahoot: OTP for reset password',
+      otp
+    )
 
     mailTransporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
@@ -58,7 +74,7 @@ const sendOtpWhenSignUpController = async (req: Request, res: Response, next: Ne
         return next(createError(500))
       } else {
         // Create OTP
-        const expired = dayjs(Date.now()).add(70, 'seconds').toDate()
+        const expired = dayjs(Date.now()).add(200, 'seconds').toDate()
         await otpServices.createOtp(email, otp, expired)
 
         return res.status(200).json({
@@ -78,4 +94,4 @@ const sendOtpWhenSignUpController = async (req: Request, res: Response, next: Ne
     return next(createError(500))
   }
 }
-export default sendOtpWhenSignUpController
+export default sendOtpController

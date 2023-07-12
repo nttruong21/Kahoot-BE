@@ -16,10 +16,10 @@ components:
         - email
         - password
 
-    # [Response] Sign in by email
-    EmailSignInResponse:
+    # [Response data] Sign in by email
+    EmailSignInResponseData:
       type: object
-      description: Email sign in response
+      description: Email sign in response data
       properties:
         id:
           type: number
@@ -49,10 +49,10 @@ components:
         - googleId
         - googleToken
 
-    # [Response] Sign in by google
-    GoogleSignInResponse:
+    # [Response data] Sign in by google
+    GoogleSignInResponseData:
       type: object
-      description: Google sign in response
+      description: Google sign in response data
       properties:
         id:
           type: number
@@ -82,10 +82,10 @@ components:
         - facebookId
         - facebookToken
 
-    # [Response] Sign in by Facebook
-    FacebookSignInResponse:
+    # [Response data] Sign in by Facebook
+    FacebookSignInResponseData:
       type: object
-      description: Facebook sign in response
+      description: Facebook sign in response data
       properties:
         id:
           type: number

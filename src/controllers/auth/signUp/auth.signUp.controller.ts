@@ -19,7 +19,7 @@ type RequestBody = {
   otp: string
 }
 
-const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: NextFunction) => {
+const signUpControllerController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email = '', password = '', username = '', otp = '' } = req.body as RequestBody
 
@@ -55,8 +55,8 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
     }
 
     // Check match otp
-    const otpInDb = await otpServices.getLastOtp(email, otp)
-    if (!otpInDb) {
+    const otpInDb = await otpServices.getLastOtp(finalEmail)
+    if (!otpInDb || otpInDb.otp !== otp) {
       return next(createError(400, 'Otp is not match'))
     }
     if (new Date(otpInDb.expired).getTime() < new Date().getTime()) {
@@ -73,7 +73,7 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
     const bcryptPassword = await bcrypt.hash(password, 12)
     const dateNow = new Date()
     const accountId = await accountServices.createAccount(AccountType.email, {
-      email,
+      email: finalEmail,
       password: bcryptPassword,
       date: dateNow
     })
@@ -92,8 +92,8 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
     const refreshToken = await jwtServices.signRefreshTokenService(payload)
 
     // Success response
-    return res.status(201).json({
-      code: 201,
+    return res.status(200).json({
+      code: 200,
       success: true,
       message: 'Sign up successfully',
       data: {
@@ -111,4 +111,4 @@ const verifyOtpWhenSignUpController = async (req: Request, res: Response, next: 
     return next(createError(500))
   }
 }
-export default verifyOtpWhenSignUpController
+export default signUpControllerController

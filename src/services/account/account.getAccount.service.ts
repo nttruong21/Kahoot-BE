@@ -8,7 +8,7 @@ type Parameters = {
   fbid?: string
 }
 
-const getAccountByEmailService = async (parameters: Parameters) => {
+const getAccountService = async (parameters: Parameters) => {
   try {
     let query
     let params
@@ -17,10 +17,10 @@ const getAccountByEmailService = async (parameters: Parameters) => {
       query = 'SELECT * FROM accounts WHERE email = ? LIMIT 1'
       params = [parameters.email]
     } else if (parameters.ggid) {
-      query = 'SELECT * FROM accounts WHERE email = ? LIMIT 1'
+      query = 'SELECT * FROM accounts WHERE ggid = ? LIMIT 1'
       params = [parameters.ggid]
     } else if (parameters.fbid) {
-      query = 'SELECT * FROM accounts WHERE email = ? LIMIT 1'
+      query = 'SELECT * FROM accounts WHERE fbid = ? LIMIT 1'
       params = [parameters.email]
     }
 
@@ -35,4 +35,4 @@ const getAccountByEmailService = async (parameters: Parameters) => {
   }
 }
 
-export default getAccountByEmailService
+export default getAccountService

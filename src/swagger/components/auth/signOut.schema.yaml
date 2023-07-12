@@ -3,16 +3,15 @@ components:
     # [Body data] Sign out body data
     SignOutBodyData:
       type: object
-      description: Refresh access token body data
+      description: Sign out body data
       properties:
         refreshToken:
           type: string
-          description: do not contain space character
       required:
         - refreshToken
 
-    # [Response] Sign out response
-    SignOutResponse:
+    # [Response data] Sign out response
+    SignOutResponseData:
       type: object
-      description: Refresh access token response
+      description: Sign out response data
       properties:

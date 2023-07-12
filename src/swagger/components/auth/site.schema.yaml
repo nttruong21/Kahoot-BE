@@ -1,0 +1,78 @@
+components:
+  schemas:
+    # [Body data] Sending otp
+    SendOtpBodyData:
+      type: object
+      description: Send otp body data
+      properties:
+        action:
+          type: string
+          description: signup/resetpassword/resendwhensignup
+        email:
+          type: string
+          format: email
+          description: do not contain space character
+        username:
+          type: string
+          description: min 6 characters, do not contain space character (required when sign up)
+      required:
+        - action
+        - email
+
+    # [Response data] Sending otp
+    SendOtpResponseData:
+      type: object
+      description: Send otp response data
+      properties:
+        email:
+          type: string
+          format: email
+        otp:
+          type: string
+        expired:
+          type: number
+
+    # [Body data] Refresh access token body data
+    RefreshAccessTokenBodyData:
+      type: object
+      description: Refresh access token body data
+      properties:
+        refreshToken:
+          type: string
+          description: do not contain space character
+      required:
+        - refreshToken
+
+    # [Response data] Refresh access token response data
+    RefreshAccessTokenResponseData:
+      type: object
+      description: Refresh access token response data
+      properties:
+        access_token:
+          type: string
+
+    # [Body data] Reset password body data
+    ResetPasswordBodyData:
+      type: object
+      description: Reset password body data
+      properties:
+        email:
+          type: string
+          format: email
+          description: do not contain space character
+        password:
+          type: string
+          description: min 6 characters, do not contain space character
+        otp:
+          type: string
+          description: 6 number characters
+      required:
+        - email
+        - password
+        - otp
+
+    # [Response data] Reset password response data
+    ResetPasswordResponseData:
+      type: object
+      description: Reset password response data
+      properties:

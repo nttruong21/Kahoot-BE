@@ -8,6 +8,7 @@ import * as accountServices from '~/services/account/account.index.service'
 import * as jwtServices from '~/services/jwt/jwt.index.service'
 import * as userServices from '~/services/user/user.index.service'
 import { TokenPayload } from '~/types/tokenPayload.type'
+import { removeDots } from '~/utils/email.util'
 
 type RequestBody = {
   email: string
@@ -17,11 +18,12 @@ type RequestBody = {
 const emailSignInController = async (req: Request, res: Response, next: NextFunction) => {
   // Email, password
   const { email = '', password = '' } = req.body as RequestBody
+  const finalEmail = removeDots(email)
 
   // Validation
   // Email
   if (
-    !validator.isEmail(email, {
+    !validator.isEmail(finalEmail, {
       blacklisted_chars: ' '
     })
   ) {
@@ -41,7 +43,7 @@ const emailSignInController = async (req: Request, res: Response, next: NextFunc
   // Checking in database
   try {
     // Get account by email
-    const account = await accountServices.getAccount({ email })
+    const account = await accountServices.getAccount({ email: finalEmail })
     if (!account) {
       return next(createError(400, 'Email is not being registered'))
     }

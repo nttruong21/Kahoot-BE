@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import axios from 'axios'
 import createError from 'http-errors'
 import otpGenerator from 'otp-generator'
+import validator from 'validator'
 
 import logging from '~/utils/logging.util'
 import * as jwtServices from '~/services/jwt/jwt.index.service'
@@ -19,6 +20,14 @@ const facebookSignInController = async (req: Request, res: Response, next: NextF
   try {
     // Get id, token of facebook auth
     const { facebookId, facebookToken } = req.body as RequestBody
+
+    // Validation
+    if (validator.isEmpty(facebookId)) {
+      return next(createError(400, 'Invalid facebook id'))
+    }
+    if (validator.isEmpty(facebookToken)) {
+      return next(createError(400, 'Invalid facebook token'))
+    }
 
     // Verify facebook token
     const { data: facebookAccountVerifiedData } = await axios.get(

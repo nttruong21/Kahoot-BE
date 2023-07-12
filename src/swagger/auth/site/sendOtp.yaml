@@ -1,15 +1,15 @@
 paths:
-  /api/v1/auth/refresh-access-token:
+  /api/v1/auth/send-otp:
     post:
-      summary: Refresh access token
-      description: Create new access token when token expired
+      summary: Send otp when sign up and reset password
+      description: Send otp when sign up and reset password
       tags:
         - Authentication
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RefreshAccessTokenBodyData'
+              $ref: '#/components/schemas/SendOtpBodyData'
         required: true
       responses:
         '200':
@@ -24,7 +24,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/RefreshAccessTokenResponse'
+                    $ref: '#/components/schemas/SendOtpResponseData'
                   message:
                     type: string
         '400':

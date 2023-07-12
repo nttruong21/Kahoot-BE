@@ -1,5 +1,5 @@
 paths:
-  /api/v1/auth/signin/email:
+  /api/v1/auth/sign-in/email:
     post:
       summary: Sign in with email
       description: Sign in with email/password
@@ -24,7 +24,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/EmailSignInResponse'
+                    $ref: '#/components/schemas/EmailSignInResponseData'
                   message:
                     type: string
         '400':

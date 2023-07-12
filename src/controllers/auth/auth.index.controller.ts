@@ -2,37 +2,38 @@ import emailSignInController from './signIn/auth.emailSignIn.controller'
 import facebookSignInController from './signIn/auth.facebookSignIn.controller'
 import googleSignInController from './signIn/auth.googleSignIn.controller'
 
-import sendOtpWhenSignUpController from './signUp/auth.sendOtpWhenSignUp.controller'
-import resendOtpWhenSignUpController from './signUp/auth.resendOtpWhenSignUp.controller'
-import verifyOtpWhenSignUpController from './signUp/auth.verifyOtpWhenSignUp.controller'
+import signUpController from './signUp/auth.signUp.controller'
 
 import signOutController from './signOut/auth.signOut.controller'
-import refreshAccessTokenController from './token/auth.refreshAccessToken.controller'
+
+import sendOtpController from './site/auth.sendOtp.controller'
+import refreshAccessTokenController from './site/auth.refreshAccessToken.controller'
+import resetPasswordController from './site/auth.resetPassword.controller'
 
 class AuthController {
-  // Email/password login
+  // Email/password sign in
   signInByEmail = emailSignInController
 
-  // Facebook login
+  // Facebook sign in
   signInByFacebook = facebookSignInController
 
-  // Google login
-  loginByGoogle = googleSignInController
+  // Google sign in
+  signInByGoogle = googleSignInController
 
-  // Send otp when sign up
-  sendOtpWhenSignUp = sendOtpWhenSignUpController
+  // Sign up
+  signUp = signUpController
 
-  // Resend otp when sign up
-  resendOtpWhenSignUp = resendOtpWhenSignUpController
-
-  // Verify otp when sign up
-  verifyOtpWhenSignUp = verifyOtpWhenSignUpController
-
-  // Logout
+  // Sign out
   signOut = signOutController
+
+  // Send otp
+  sendOtp = sendOtpController
 
   // Refresh access token
   refreshAccessToken = refreshAccessTokenController
+
+  // Reset password
+  resetPassword = resetPasswordController
 }
 
 export default new AuthController()

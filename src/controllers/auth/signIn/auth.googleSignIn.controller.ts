@@ -22,20 +22,10 @@ const googleSignInController = async (req: Request, res: Response, next: NextFun
     const { googleId, googleToken } = req.body as RequestBody
 
     // Validation
-    if (
-      validator.isEmpty(googleId) ||
-      !validator.isEmail(googleId, {
-        blacklisted_chars: ' '
-      })
-    ) {
+    if (validator.isEmpty(googleId)) {
       return next(createError(400, 'Invalid google id'))
     }
-    if (
-      validator.isEmpty(googleToken) ||
-      !validator.isEmail(googleToken, {
-        blacklisted_chars: ' '
-      })
-    ) {
+    if (validator.isEmpty(googleToken)) {
       return next(createError(400, 'Invalid google token'))
     }
 

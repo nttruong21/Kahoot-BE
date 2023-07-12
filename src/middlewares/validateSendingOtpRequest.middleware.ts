@@ -36,7 +36,7 @@ const validateSendingOtpRequestMiddleware = async (req: Request, res: Response, 
     }
 
     // Can make request
-    req.body.email = email
+    req.body.email = finalEmail
     return next()
   } catch (error) {
     logging.error('Validate sending otp request middleware has error: ', error)

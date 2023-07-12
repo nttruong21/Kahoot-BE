@@ -1,15 +1,15 @@
 paths:
-  /api/v1/auth/signup/resend-otp:
+  /api/v1/auth/sign-up:
     post:
-      summary: Resend otp when sign up
-      description: Resend otp when sign up
+      summary: Sign up
+      description: Sign up
       tags:
         - Authentication
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SendOtpWhenSignUpBodyData'
+              $ref: '#/components/schemas/SignUpBodyData'
         required: true
       responses:
         '200':
@@ -24,7 +24,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/SendOtpWhenSignUpResponse'
+                    $ref: '#/components/schemas/SignUpResponseData'
                   message:
                     type: string
         '400':
