@@ -1,0 +1,79 @@
+components:
+  schemas:
+    # [Body data]
+    CreateKahootBodyData:
+      type: object
+      description: Create kahoot body data
+      properties:
+        kahoot:
+          type: object
+          properties:
+            userId:
+              type: number
+            coverImage:
+              type: string
+            title:
+              type: string
+            theme:
+              type: string
+              description: enum (standard/pride/spring/summer/autumn/winter)
+            description:
+              type: string
+            media:
+              type: string
+              description: 'Youtube video link: https://youtube.com/...'
+            visibleScope:
+              type: string
+              description: enum (private/public)
+            questions:
+              type: array
+              description: must be an array which has length > 0
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: enum (quiz/trueorfalse)
+                  media:
+                    type: string
+                    description: image
+                  timeLimit:
+                    type: number
+                    description: in seconds
+                  point:
+                    type: number
+                    description: 0, 1000, 2000
+                  question:
+                    type: string
+                  answers:
+                    type: array
+                    description: must be an array which has length > 0
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+                        image:
+                          type: string
+                        isCorrect:
+                          type: boolean
+                      required:
+                        - isCorrect
+                required:
+                  - type
+                  - timeLimit
+                  - point
+                  - question
+                  - answers
+          required:
+            - userId
+            - title
+            - theme
+            - visibleScope
+            - questions
+        images:
+          type: array
+          items:
+            type: File
+      required:
+        - kahoot

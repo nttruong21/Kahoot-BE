@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
 
-import configRoutes from './routes/index.route'
+import configRoutes from '~/routes/index.route'
 
 dotenv.config()
 
@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json({ limit: '10mb' }))
 app.use(
   express.urlencoded({
-    extended: false,
+    extended: true,
     limit: '10mb'
   })
 )
@@ -26,11 +26,11 @@ app.use(
 //   next()
 // })
 
-app.use((req, res, next) => {
-  setTimeout(() => {
-    next()
-  }, 2000)
-})
+// app.use((req, res, next) => {
+//   setTimeout(() => {
+//     next()
+//   }, 2000)
+// })
 
 // Routes
 configRoutes(app)

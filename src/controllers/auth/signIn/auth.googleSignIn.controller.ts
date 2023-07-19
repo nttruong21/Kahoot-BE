@@ -29,15 +29,18 @@ const googleSignInController = async (req: Request, res: Response, next: NextFun
       return next(createError(400, 'Invalid google token'))
     }
 
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+    const googleClientId = process.env.GOOGLE_CLIENT_ID
+
+    const client = new OAuth2Client(googleClientId)
 
     // Verify token
     const googlePayload = (
       await client.verifyIdToken({
         idToken: googleToken,
-        audience: process.env.GOOGLE_CLIENT_ID
+        audience: googleClientId
       })
     ).getPayload()
+
     if (!googlePayload || googlePayload.sub !== googleId) {
       return next(createError(401))
     }
