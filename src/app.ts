@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
 
-import configRoutes from '~/routes/index.route'
+import configRoutes from './routes/index.route'
 
 dotenv.config()
 

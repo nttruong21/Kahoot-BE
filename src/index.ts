@@ -2,10 +2,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import http from 'http'
-import app from '~/app'
-import logging from '~/utils/logging.util'
-import redisClient from '~/configs/redis.config'
-import * as databaseConfigs from '~/configs/database.config'
+import app from './app'
+import logging from './utils/logging.util'
+import redisClient from './configs/redis.config'
+import * as databaseConfigs from './configs/database.config'
 const server = http.createServer(app)
 
 // Connect MariaDB

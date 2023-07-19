@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-import redisClient from '~/configs/redis.config'
-import { TokenPayload } from '~/types/tokenPayload.type'
+import redisClient from '../../configs/redis.config'
+import { TokenPayload } from '../../types/tokenPayload.type'
 
 const signRefreshTokenService = async (payload: TokenPayload): Promise<string> => {
   return new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
-import { executeQuery } from '~/configs/database.config'
-import { AccountModel } from '~/models/account.model'
-import logging from '~/utils/logging.util'
+import { executeQuery } from '../../configs/database.config'
+import { AccountModel } from '../../models/account.model'
+import logging from '../../utils/logging.util'
 
 type Parameters = {
   email?: string

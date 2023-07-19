@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import validator from 'validator'
 import createError from 'http-errors'
 
-import { QuestionPoint, QuestionType, Theme, VisibleScope } from '~/enums/kahoot.enum'
-import { Kahoot } from '~/models/kahoot.model'
+import { QuestionPoint, QuestionType, Theme, VisibleScope } from '../../../enums/kahoot.enum'
+import { Kahoot } from '../../../models/kahoot.model'
 
 const validateCreatingKahootFormDataController = (
   req: Request,

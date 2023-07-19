@@ -3,10 +3,10 @@ import createError from 'http-errors'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
 
-import logging from '~/utils/logging.util'
-import { removeDots } from '~/utils/email.util'
-import * as accountServices from '~/services/account/account.index.service'
-import * as otpServices from '~/services/otp/otp.index.service'
+import logging from '../../../utils/logging.util'
+import { removeDots } from '../../../utils/email.util'
+import * as accountServices from '../../../services/account/account.index.service'
+import * as otpServices from '../../../services/otp/otp.index.service'
 
 type RequestBody = {
   email: string

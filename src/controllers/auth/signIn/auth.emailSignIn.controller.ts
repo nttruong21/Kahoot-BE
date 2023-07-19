@@ -3,12 +3,12 @@ import createError from 'http-errors'
 import bcrypt from 'bcryptjs'
 import validator from 'validator'
 
-import logging from '~/utils/logging.util'
-import * as accountServices from '~/services/account/account.index.service'
-import * as jwtServices from '~/services/jwt/jwt.index.service'
-import * as userServices from '~/services/user/user.index.service'
-import { TokenPayload } from '~/types/tokenPayload.type'
-import { removeDots } from '~/utils/email.util'
+import logging from '../../../utils/logging.util'
+import * as accountServices from '../../../services/account/account.index.service'
+import * as jwtServices from '../../../services/jwt/jwt.index.service'
+import * as userServices from '../../../services/user/user.index.service'
+import { TokenPayload } from '../../../types/tokenPayload.type'
+import { removeDots } from '../../../utils/email.util'
 
 type RequestBody = {
   email: string

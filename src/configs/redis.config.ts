@@ -1,6 +1,6 @@
 import { createClient } from 'redis'
 
-import logging from '~/utils/logging.util'
+import logging from '../utils/logging.util'
 
 const client = createClient()
 

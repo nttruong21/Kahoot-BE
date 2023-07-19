@@ -1,7 +1,7 @@
-import logging from '~/utils/logging.util'
+import logging from '../../utils/logging.util'
 
-import { executeQuery } from '~/configs/database.config'
-import { UserModel } from '~/models/user.model'
+import { executeQuery } from '../../configs/database.config'
+import { UserModel } from '../../models/user.model'
 
 interface Parameters {
   id?: number

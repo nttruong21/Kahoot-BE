@@ -1,6 +1,6 @@
-import logging from '~/utils/logging.util'
+import logging from '../../utils/logging.util'
 
-import { executeQuery } from '~/configs/database.config'
+import { executeQuery } from '../../configs/database.config'
 
 const createUserService = async (accountId: number, username: string, image: string, date: Date) => {
   try {

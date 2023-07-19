@@ -1,6 +1,6 @@
-import logging from '~/utils/logging.util'
-import { executeQuery } from '~/configs/database.config'
-import { OtpModel } from '~/models/otp.model'
+import logging from '../../utils/logging.util'
+import { executeQuery } from '../../configs/database.config'
+import { OtpModel } from '../../models/otp.model'
 
 const getLastOtpService = async (email: String) => {
   try {

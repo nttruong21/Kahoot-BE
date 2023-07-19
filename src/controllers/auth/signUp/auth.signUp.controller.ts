@@ -3,14 +3,14 @@ import createError from 'http-errors'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
 
-import logging from '~/utils/logging.util'
-import { removeDots } from '~/utils/email.util'
-import * as accountServices from '~/services/account/account.index.service'
-import * as userServices from '~/services/user/user.index.service'
-import * as jwtServices from '~/services/jwt/jwt.index.service'
-import * as otpServices from '~/services/otp/otp.index.service'
-import { TokenPayload } from '~/types/tokenPayload.type'
-import { AccountType } from '~/enums/account.enum'
+import logging from '../../../utils/logging.util'
+import { removeDots } from '../../../utils/email.util'
+import * as accountServices from '../../../services/account/account.index.service'
+import * as userServices from '../../../services/user/user.index.service'
+import * as jwtServices from '../../../services/jwt/jwt.index.service'
+import * as otpServices from '../../../services/otp/otp.index.service'
+import { TokenPayload } from '../../../types/tokenPayload.type'
+import { AccountType } from '../../../enums/account.enum'
 
 type RequestBody = {
   email: string

@@ -1,7 +1,7 @@
 // import { Response } from 'express'
 // import dayjs from 'dayjs'
 
-// import * as cookieServices from '~/services/cookie/cookie.index.service'
+// import * as cookieServices from '../../services/cookie/cookie.index.service'
 
 // const parseCookie = (cookieHeader: string): { [key: string]: string } => {
 //   let cookies = {}

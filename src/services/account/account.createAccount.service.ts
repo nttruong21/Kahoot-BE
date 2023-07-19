@@ -1,7 +1,7 @@
-import logging from '~/utils/logging.util'
+import logging from '../../utils/logging.util'
 
-import { executeQuery } from '~/configs/database.config'
-import { AccountType } from '~/enums/account.enum'
+import { executeQuery } from '../../configs/database.config'
+import { AccountType } from '../../enums/account.enum'
 
 const createAccountService = async (type: AccountType, data: any): Promise<number | null> => {
   try {

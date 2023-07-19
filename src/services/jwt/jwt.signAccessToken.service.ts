@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { TokenPayload } from '~/types/tokenPayload.type'
+import { TokenPayload } from '../../types/tokenPayload.type'
 
 const signAccessTokenService = async (payload: TokenPayload): Promise<string> => {
   return new Promise((resolve, reject) => {

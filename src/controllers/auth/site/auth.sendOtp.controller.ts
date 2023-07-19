@@ -4,11 +4,11 @@ import otpGenerator from 'otp-generator'
 import dayjs from 'dayjs'
 import validator from 'validator'
 
-import logging from '~/utils/logging.util'
-import { mailTransporter, getMailOptions } from '~/configs/mailer.config'
-import * as accountServices from '~/services/account/account.index.service'
-import * as userServices from '~/services/user/user.index.service'
-import * as otpServices from '~/services/otp/otp.index.service'
+import logging from '../../../utils/logging.util'
+import { mailTransporter, getMailOptions } from '../../../configs/mailer.config'
+import * as accountServices from '../../../services/account/account.index.service'
+import * as userServices from '../../../services/user/user.index.service'
+import * as otpServices from '../../../services/otp/otp.index.service'
 
 // action: signup/resetpassword/resendwhensignup
 

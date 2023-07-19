@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import validator from 'validator'
 
-import logging from '~/utils/logging.util'
-import * as otpServices from '~/services/otp/otp.index.service'
-import { removeDots } from '~/utils/email.util'
+import logging from '../utils/logging.util'
+import * as otpServices from '../services/otp/otp.index.service'
+import { removeDots } from '../utils/email.util'
 
 type RequestBody = {
   email: string

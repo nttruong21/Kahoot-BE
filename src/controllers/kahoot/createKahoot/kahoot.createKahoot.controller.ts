@@ -3,12 +3,12 @@ import createError from 'http-errors'
 import { File } from 'formidable'
 
 import validateCreatingKahootFormDataController from './kahoot.validateCreatingKahootFormData.controller'
-import logging from '~/utils/logging.util'
-import myFormidable from '~/configs/formidable.config'
-import { Kahoot } from '~/models/kahoot.model'
-import * as kahootServices from '~/services/kahoot/kahoot.index.service'
-import * as questionServices from '~/services/question/question.index.service'
-import * as answerServices from '~/services/answer/answer.index.service'
+import logging from '../../../utils/logging.util'
+import myFormidable from '../../../configs/formidable.config'
+import { Kahoot } from '../../../models/kahoot.model'
+import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
+import * as questionServices from '../../../services/question/question.index.service'
+import * as answerServices from '../../../services/answer/answer.index.service'
 
 const createKahootController = async (req: Request, res: Response, next: NextFunction) => {
   myFormidable.parse(req, async (err, fields, files) => {

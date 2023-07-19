@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import validator from 'validator'
 
-import logging from '~/utils/logging.util'
-import * as jwtServices from '~/services/jwt/jwt.index.service'
+import logging from '../../../utils/logging.util'
+import * as jwtServices from '../../../services/jwt/jwt.index.service'
 
 type RequestBody = {
   refreshToken: string

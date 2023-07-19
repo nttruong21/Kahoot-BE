@@ -4,12 +4,12 @@ import otpGenerator from 'otp-generator'
 import { OAuth2Client } from 'google-auth-library'
 import validator from 'validator'
 
-import logging from '~/utils/logging.util'
-import * as jwtServices from '~/services/jwt/jwt.index.service'
-import * as accountServices from '~/services/account/account.index.service'
-import * as userServices from '~/services/user/user.index.service'
-import { TokenPayload } from '~/types/tokenPayload.type'
-import { AccountType } from '~/enums/account.enum'
+import logging from '../../../utils/logging.util'
+import * as jwtServices from '../../../services/jwt/jwt.index.service'
+import * as accountServices from '../../../services/account/account.index.service'
+import * as userServices from '../../../services/user/user.index.service'
+import { TokenPayload } from '../../../types/tokenPayload.type'
+import { AccountType } from '../../../enums/account.enum'
 
 type RequestBody = {
   googleId: string

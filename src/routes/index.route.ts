@@ -2,7 +2,7 @@ import { Application, ErrorRequestHandler, NextFunction, Request, Response } fro
 import { serve, setup } from 'swagger-ui-express'
 import createError from 'http-errors'
 
-import { swaggerDocs } from '~/configs/swagger.config'
+import { swaggerDocs } from '../configs/swagger.config'
 import authRouter from './auth.route'
 import kahootRouter from './kahoot.route'
 

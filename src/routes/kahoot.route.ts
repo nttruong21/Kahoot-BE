@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import KahootController from '~/controllers/kahoot/kahoot.index.controller'
+import KahootController from '../controllers/kahoot/kahoot.index.controller'
 
 const kahootRouter = Router()
 

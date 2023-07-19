@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 
-import redisClient from '~/configs/redis.config'
-import { TokenPayload } from '~/types/tokenPayload.type'
-import logging from '~/utils/logging.util'
+import redisClient from '../../configs/redis.config'
+import { TokenPayload } from '../../types/tokenPayload.type'
+import logging from '../../utils/logging.util'
 
 const verifyRefreshTokenService = (refreshToken: string): Promise<TokenPayload> => {
   return new Promise(async (resolve, reject) => {

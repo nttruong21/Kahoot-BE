@@ -1,6 +1,6 @@
 import mariadb from 'mariadb'
 
-import logging from '~/utils/logging.util'
+import logging from '../utils/logging.util'
 
 const configs = {
   host: process.env.MARIADB_HOST,

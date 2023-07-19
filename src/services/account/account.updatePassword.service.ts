@@ -1,6 +1,6 @@
-import logging from '~/utils/logging.util'
+import logging from '../../utils/logging.util'
 
-import { executeQuery } from '~/configs/database.config'
+import { executeQuery } from '../../configs/database.config'
 
 const updatePasswordService = async (parameters: { id?: string; email?: string; password: string }): Promise<void> => {
   try {

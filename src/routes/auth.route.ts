@@ -1,10 +1,9 @@
 import { Router } from 'express'
 
-import AuthController from '~/controllers/auth/auth.index.controller'
-import * as middlewares from '~/middlewares/index.middleware'
+import AuthController from '../controllers/auth/auth.index.controller'
+import * as middlewares from '../middlewares/index.middleware'
 
 // Temp
-import * as accountServices from '~/services/account/account.index.service'
 
 const authRouter = Router()
 
@@ -31,12 +30,5 @@ authRouter.post('/refresh-access-token', AuthController.refreshAccessToken)
 
 // Reset password
 authRouter.post('/reset-password', AuthController.resetPassword)
-
-// Temp
-authRouter.delete('/temp/delete', async (req, res, next) => {
-  const { id }: { id: number } = req.body
-  await accountServices.deleteAccount(id)
-  return res.status(200).json('Successfully')
-})
 
 export default authRouter

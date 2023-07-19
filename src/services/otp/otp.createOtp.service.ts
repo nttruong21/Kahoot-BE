@@ -1,6 +1,6 @@
-import { executeQuery } from '~/configs/database.config'
+import { executeQuery } from '../../configs/database.config'
 
-import logging from '~/utils/logging.util'
+import logging from '../../utils/logging.util'
 
 const createOtpService = async (email: string, otp: string, expired: Date) => {
   try {

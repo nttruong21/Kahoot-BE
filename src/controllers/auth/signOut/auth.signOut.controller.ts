@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import createError from 'http-errors'
 import validator from 'validator'
 
-import redisClient from '~/configs/redis.config'
-import logging from '~/utils/logging.util'
-import * as jwtServices from '~/services/jwt/jwt.index.service'
+import redisClient from '../../../configs/redis.config'
+import logging from '../../../utils/logging.util'
+import * as jwtServices from '../../../services/jwt/jwt.index.service'
 
 type RequestBody = {
   refreshToken: string

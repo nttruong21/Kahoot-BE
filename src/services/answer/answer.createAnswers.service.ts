@@ -1,6 +1,6 @@
-import logging from '~/utils/logging.util'
-import { executeQuery } from '~/configs/database.config'
-import { Answer } from '~/models/kahoot.model'
+import logging from '../../utils/logging.util'
+import { executeQuery } from '../../configs/database.config'
+import { Answer } from '../../models/kahoot.model'
 
 const createAnswersService = async (questionId: number, answers: Answer[]): Promise<void> => {
   try {
