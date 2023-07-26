@@ -1,0 +1,68 @@
+components:
+  schemas:
+    # [Response]
+    GetKahootDetailResponse:
+      type: object
+      description: Get kahoot detail response
+      properties:
+        userId:
+          type: number
+        id:
+          type: number
+        coverImage:
+          type: string
+          nullable: true
+        title:
+          type: string
+        theme:
+          type: string
+        description:
+          type: string
+          nullable: true
+        media:
+          type: string
+          nullable: true
+        visibleScope:
+          type: string
+        questions:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              type:
+                type: string
+              media:
+                type: string
+                nullable: true
+              timeLimit:
+                type: number
+                description: in seconds
+              point:
+                type: number
+              question:
+                type: string
+              answer:
+                type: boolean
+                nullable: true
+              inOrder:
+                type: number
+              answers:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    text:
+                      type: string
+                      nullable: true
+                    image:
+                      type: string
+                      nullable: true
+                    isCorrect:
+                      type: boolean
+                    inOrder:
+                      type: number

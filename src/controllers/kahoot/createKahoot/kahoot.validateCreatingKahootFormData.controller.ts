@@ -3,7 +3,7 @@ import validator from 'validator'
 import createError from 'http-errors'
 
 import { QuestionPoint, QuestionType, Theme, VisibleScope } from '../../../enums/kahoot.enum'
-import { Kahoot } from '../../../models/kahoot.model'
+import { Kahoot, TrueOrFalseQuestion, QuizQuestion } from '../../../models/kahoot.model'
 
 const validateCreatingKahootFormDataController = (
   req: Request,
@@ -11,13 +11,9 @@ const validateCreatingKahootFormDataController = (
   next: NextFunction,
   kahootBodyData: Kahoot
 ) => {
-  const { userId, coverImage, title, theme, description, media, language, visibleScope, questions } = kahootBodyData
+  const { coverImage, title, theme, description, media, language, visibleScope, questions } = kahootBodyData
 
-  // Required fields: userId, title, theme, visibleScope, questions
-  // User id
-  if (!userId || !Number.isInteger(userId) || userId < 1) {
-    return next(createError(400, 'Invalid user id'))
-  }
+  // Required fields: title, theme, visibleScope, questions
 
   // Title
   if (!title || validator.isEmpty(title.trim())) {
@@ -74,23 +70,33 @@ const validateCreatingKahootFormDataController = (
     }
 
     // Question answers
-    if (!Array.isArray(question.answers) || question.answers.length < 1) {
-      isInvalidQuestion = true
-      invalidQuestionMessage = 'Invalid question answers'
-      return
-    }
-
-    question.answers.map((answer) => {
-      if (isInvalidQuestion) {
-        return
-      }
-
-      if ((!answer.text && !answer.image) || typeof answer.isCorrect !== 'boolean') {
+    if (question.type === QuestionType.trueorfalse) {
+      const trueOrFalseQuestion = question as TrueOrFalseQuestion
+      if (trueOrFalseQuestion.answer === undefined || !validator.isBoolean(trueOrFalseQuestion.answer.toString())) {
         isInvalidQuestion = true
-        invalidQuestionMessage = 'Invalid answer'
+        invalidQuestionMessage = 'Invalid question answer of trueorfalse question'
         return
       }
-    })
+    } else {
+      const quizQuestion = question as QuizQuestion
+      if (!Array.isArray(quizQuestion.answers) || quizQuestion.answers.length < 1) {
+        isInvalidQuestion = true
+        invalidQuestionMessage = 'Invalid question answers of quiz question'
+        return
+      }
+
+      quizQuestion.answers.map((answer) => {
+        if (isInvalidQuestion) {
+          return
+        }
+
+        if ((!answer.text && !answer.image) || typeof answer.isCorrect !== 'boolean') {
+          isInvalidQuestion = true
+          invalidQuestionMessage = 'Invalid answer of quiz question'
+          return
+        }
+      })
+    }
   })
 
   if (isInvalidQuestion) {

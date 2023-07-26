@@ -1,18 +1,17 @@
 paths:
-  /api/v1/kahoots:
-    post:
-      summary: Create kahoot
-      description: Create kahoot
+  /api/v1/kahoots/detail/{id}:
+    get:
+      summary: Get kahoot detail
+      description: Get kahoot detail
       tags:
         - Kahoot
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreateKahootBodyData'
-        required: true
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
       responses:
         '200':
           description: OK
@@ -27,7 +26,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/CreateKahootResponse'
+                    $ref: '#/components/schemas/GetKahootDetailResponse'
                   message:
                     type: string
                     example: 'Create kahoot successfully'

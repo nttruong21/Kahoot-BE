@@ -1,8 +1,8 @@
 import logging from '../../utils/logging.util'
 import { executeQuery } from '../../configs/database.config'
-import { Answer } from '../../models/kahoot.model'
+import { QuizAnswer } from '../../models/kahoot.model'
 
-const createAnswersService = async (questionId: number, answers: Answer[]): Promise<void> => {
+const createAnswersService = async (questionId: number, answers: QuizAnswer[]): Promise<void> => {
   try {
     const query = answers.reduce((previousValue, currentValue, index, answers) => {
       return (previousValue += index === 0 ? '(?, ?, ?, ?)' : ',(?, ?, ?, ?)')

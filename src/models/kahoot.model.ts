@@ -1,4 +1,5 @@
 interface Kahoot {
+  id?: number
   userId: number
   title: string
   coverImage: string
@@ -6,23 +7,36 @@ interface Kahoot {
   description?: string
   media?: string
   visibleScope: string
-  language: string
-  questions: Array<Question>
+  language?: string
+  questions: Array<QuizQuestion | TrueOrFalseQuestion>
 }
 
 interface Question {
+  id?: number
   type: string
   media?: string
   timeLimit: number
   point: number
   question: string
-  answers: Array<Answer>
+  inOrder?: number
+  answer?: boolean
+  answers?: Array<QuizAnswer>
 }
 
-interface Answer {
+interface QuizQuestion extends Question {
+  answers: Array<QuizAnswer>
+}
+
+interface TrueOrFalseQuestion extends Question {
+  answer: boolean
+}
+
+interface QuizAnswer {
+  id?: number
   text?: string
   image?: string
   isCorrect: boolean
+  inOrder?: number
 }
 
-export { Kahoot, Question, Answer }
+export { Kahoot, Question, QuizAnswer, QuizQuestion, TrueOrFalseQuestion }
