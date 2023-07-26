@@ -82,7 +82,12 @@ const signUpControllerController = async (req: Request, res: Response, next: Nex
     }
 
     // Create user
-    await userServices.createUser(accountId, username, '/images/default-avt.jpg', dateNow)
+    await userServices.createUser(
+      accountId,
+      username,
+      'https://storage.googleapis.com/kahoot-nodejs-c67a0.appspot.com/images/default-avt.jpg?GoogleAccessId=firebase-adminsdk-kkws4%40kahoot-nodejs-c67a0.iam.gserviceaccount.com&Expires=16730298000&Signature=rhW5g%2ByrJxxOJJS54Kpx00QzFLIwI5RItJtTeKhNmjSck2UfMyS%2BEDXjfAds0jICPHKXfr5YQw8KdiSruAjqX%2Fwr07Uw0U13Jj5eF%2FArn4sODgxfStanW2f9jU%2FC7VgU2PWfzsZBSZUCz6DD9dFizdMZwgSpxp2xRAncwSrlapRhSkfU2JL2NJ9SYt4COz7fdcvOp3VTq9ps4NbXlUmBPC3T78LgZsVjyV3ft6VyZYyHQFircMBnRtUsOYooPlnCYgHX8aMYgCZEOp1Ggy%2FSPmSiQthcnqouO4DDn2g53jSb7fMNpMK8CkOyJqR1BAgfgpEYt%2BVl7DNiaD80zeDxqA%3D%3D',
+      dateNow
+    )
 
     // Sign access token & refresh token
     const payload: TokenPayload = {
@@ -100,7 +105,8 @@ const signUpControllerController = async (req: Request, res: Response, next: Nex
         id: accountId,
         name: username,
         username,
-        image: '/images/default-avt.jpg',
+        image:
+          'https://storage.googleapis.com/kahoot-nodejs-c67a0.appspot.com/images/default-avt.jpg?GoogleAccessId=firebase-adminsdk-kkws4%40kahoot-nodejs-c67a0.iam.gserviceaccount.com&Expires=16730298000&Signature=rhW5g%2ByrJxxOJJS54Kpx00QzFLIwI5RItJtTeKhNmjSck2UfMyS%2BEDXjfAds0jICPHKXfr5YQw8KdiSruAjqX%2Fwr07Uw0U13Jj5eF%2FArn4sODgxfStanW2f9jU%2FC7VgU2PWfzsZBSZUCz6DD9dFizdMZwgSpxp2xRAncwSrlapRhSkfU2JL2NJ9SYt4COz7fdcvOp3VTq9ps4NbXlUmBPC3T78LgZsVjyV3ft6VyZYyHQFircMBnRtUsOYooPlnCYgHX8aMYgCZEOp1Ggy%2FSPmSiQthcnqouO4DDn2g53jSb7fMNpMK8CkOyJqR1BAgfgpEYt%2BVl7DNiaD80zeDxqA%3D%3D',
         created_at: dateNow.getTime(),
         access_token: accessToken,
         refresh_token: refreshToken
