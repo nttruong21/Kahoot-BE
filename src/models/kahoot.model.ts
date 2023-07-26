@@ -1,6 +1,6 @@
 interface Kahoot {
   id?: number
-  userId: number
+  userId?: number
   title: string
   coverImage: string
   theme: string

@@ -1,3 +1,7 @@
 export { default as createQuizQuestion } from './question.createQuizQuestion.service'
 export { default as createTrueOrFalseQuestion } from './question.createTrueOrFalseQuestion.service'
 export { default as getQuestionsByKahootId } from './question.getQuestionsByKahootId.service'
+export { default as updateQuizQuestion } from './question.updateQuizQuestion.service'
+export { default as updateTrueOrFalseQuestion } from './question.updateTrueOrFalseQuestion.service'
+export { default as deleteQuestion } from './question.deleteQuestion.service'
+export { default as deleteQuestions } from './question.deleteQuestions.service'

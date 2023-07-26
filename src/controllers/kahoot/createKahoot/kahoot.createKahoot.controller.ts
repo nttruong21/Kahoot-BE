@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
-import firebaseAdmin from 'firebase-admin'
-import fs from 'fs'
 
 import validateCreatingKahootFormDataController from './kahoot.validateCreatingKahootFormData.controller'
 import logging from '../../../utils/logging.util'
@@ -11,27 +9,7 @@ import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
 import * as questionServices from '../../../services/question/question.index.service'
 import * as answerServices from '../../../services/answer/answer.index.service'
 import { QuestionType } from '../../../enums/kahoot.enum'
-import firebaseAccountService from '../../../keys/kahoot-nodejs-c67a0-firebase-adminsdk-kkws4-1b0890ee47.json'
-
-firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(firebaseAccountService as any),
-  storageBucket: 'kahoot-nodejs-c67a0.appspot.com'
-})
-
-const bucket = firebaseAdmin.storage().bucket()
-
-const uploadImage = async (fileName: string) => {
-  const file = bucket.file(`images/${fileName}`)
-  await file.save(fs.readFileSync(`src/public/images/${fileName}`), {
-    contentType: 'image/*'
-  })
-
-  const downloadUrl = await file.getSignedUrl({
-    action: 'read',
-    expires: '03-01-2500'
-  })
-  return downloadUrl[0]
-}
+import { uploadImage } from '../../../configs/firebaseUpload.config'
 
 const createKahootController = async (req: Request, res: Response, next: NextFunction) => {
   myFormidable.parse(req, async (err, fields, files) => {
@@ -46,7 +24,10 @@ const createKahootController = async (req: Request, res: Response, next: NextFun
     // const images = files['images'] as Array<File>
 
     // Validate kahoot body
-    validateCreatingKahootFormDataController(req, res, next, kahootBodyData)
+    const validateError = validateCreatingKahootFormDataController(kahootBodyData)
+    if (validateError) {
+      return next(createError(400, validateError))
+    }
 
     try {
       // Create kahoot
@@ -89,7 +70,7 @@ const createKahootController = async (req: Request, res: Response, next: NextFun
                 answer.id = answerId
               })
             )
-          } else {
+          } else if (question.type === QuestionType.trueorfalse) {
             // Create true or false question
             const trueOrFalseQuestion = question as TrueOrFalseQuestion
             trueOrFalseQuestion.inOrder = index + 1

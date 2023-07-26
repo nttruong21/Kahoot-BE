@@ -7,5 +7,6 @@ const kahootRouter = Router()
 
 kahootRouter.get('/detail/:id', KahootController.getKahootDetail)
 kahootRouter.post('/', middlewares.validateAccessToken, KahootController.createKahoot)
+kahootRouter.put('/', middlewares.validateAccessToken, KahootController.updateKahoot)
 
 export default kahootRouter

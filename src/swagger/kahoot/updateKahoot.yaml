@@ -1,0 +1,56 @@
+paths:
+  /api/v1/kahoots:
+    put:
+      summary: Update kahoot
+      description: Update kahoot
+      tags:
+        - Kahoot
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateKahootBodyData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                    example: 'Update kahoot successfully'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 400
+                success: false
+                data: {}
+                message: Invalid email
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

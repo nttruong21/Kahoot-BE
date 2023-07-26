@@ -1,13 +1,15 @@
 components:
   schemas:
     # [Body data]
-    CreateKahootBodyData:
+    UpdateKahootBodyData:
       type: object
-      description: Create kahoot body data
+      description: Update kahoot body data
       properties:
         kahoot:
           type: object
           properties:
+            id:
+              type: number
             coverImage:
               type: string
             title:
@@ -23,12 +25,18 @@ components:
             visibleScope:
               type: string
               description: enum (private/public)
+            flag:
+              type: string
+              description: edited
+              nullable: true
             questions:
               type: array
               description: must be an array which has length > 0
               items:
                 type: object
                 properties:
+                  id:
+                    type: number
                   type:
                     type: string
                     description: enum (quiz/trueorfalse)
@@ -43,6 +51,10 @@ components:
                     description: 0, 1000, 2000
                   question:
                     type: string
+                  flag:
+                    type: string
+                    description: added/edited
+                    nullable: true
                   answer:
                     type: boolean
                     description: required with the true or false question
@@ -52,21 +64,29 @@ components:
                     items:
                       type: object
                       properties:
+                        id:
+                          type: number
                         text:
                           type: string
                         image:
                           type: string
                         isCorrect:
                           type: boolean
+                        flag:
+                          type: string
+                          description: added/edited
+                          nullable: true
                       required:
+                        - id
                         - isCorrect
                 required:
+                  - id
                   - type
                   - timeLimit
                   - point
                   - question
           required:
-            - userId
+            - id
             - title
             - theme
             - visibleScope
@@ -75,13 +95,21 @@ components:
           type: array
           items:
             type: File
+        deletedQuestionIds:
+          type: array
+          items:
+            type: number
+        deletedAnswerIds:
+          type: array
+          items:
+            type: number
       required:
         - kahoot
 
     # [Response]
-    CreateKahootResponse:
+    UpdateKahootResponse:
       type: object
-      description: Create kahoot response
+      description: Update kahoot response
       properties:
         userId:
           type: number

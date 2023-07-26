@@ -5,34 +5,32 @@ import createError from 'http-errors'
 import { QuestionPoint, QuestionType, Theme, VisibleScope } from '../../../enums/kahoot.enum'
 import { Kahoot, TrueOrFalseQuestion, QuizQuestion } from '../../../models/kahoot.model'
 
-const validateCreatingKahootFormDataController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-  kahootBodyData: Kahoot
-) => {
-  const { coverImage, title, theme, description, media, language, visibleScope, questions } = kahootBodyData
+const validateCreatingKahootFormDataController = (kahootBodyData: Kahoot): string | null => {
+  if (!kahootBodyData) {
+    return 'Invalid body data'
+  }
 
   // Required fields: title, theme, visibleScope, questions
+  const { title = '', theme = '', visibleScope = '', questions = [] } = kahootBodyData
 
   // Title
   if (!title || validator.isEmpty(title.trim())) {
-    return next(createError(400, 'Invalid title'))
+    return 'Invalid title'
   }
 
   // Theme
   if (!theme || validator.isEmpty(theme) || !(theme in Theme)) {
-    return next(createError(400, 'Invalid theme'))
+    return 'Invalid theme'
   }
 
   // Visible scope
   if (!visibleScope || validator.isEmpty(visibleScope) || !(visibleScope in VisibleScope)) {
-    return next(createError(400, 'Invalid visible scope'))
+    return 'Invalid visible scope'
   }
 
   // Questions
   if (!Array.isArray(questions) || questions.length < 1) {
-    return next(createError(400, 'Invalid questions'))
+    return 'Invalid questions'
   }
   let isInvalidQuestion = false
   let invalidQuestionMessage: string | null = null
@@ -100,8 +98,9 @@ const validateCreatingKahootFormDataController = (
   })
 
   if (isInvalidQuestion) {
-    return next(createError(400, invalidQuestionMessage!))
+    return invalidQuestionMessage
   }
+  return null
 }
 
 export default validateCreatingKahootFormDataController
