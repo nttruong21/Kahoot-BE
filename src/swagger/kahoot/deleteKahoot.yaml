@@ -1,18 +1,19 @@
 paths:
-  /api/v1/kahoots:
-    put:
-      summary: Update kahoot
-      description: Update kahoot
+  /api/v1/kahoots/{id}:
+    delete:
+      summary: Delete kahoot
+      description: Delete kahoot
       tags:
         - Kahoot
       security:
         - bearerAuth: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateKahootBodyData'
-        required: true
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: kahoot id which want to delete
+          required: true
       responses:
         '200':
           description: OK
@@ -27,7 +28,8 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: object
+                    type: number
+                    description: kahoot id which was be deleted
                   message:
                     type: string
                     example: 'Update kahoot successfully'

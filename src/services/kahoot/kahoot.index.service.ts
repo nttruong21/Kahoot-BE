@@ -1,3 +1,5 @@
 export { default as createKahoot } from './kahoot.createKahoot.service'
 export { default as getKahoot } from './kahoot.getKahoot.service'
+export { default as getKahoots } from './kahoot.getKahoots.service'
 export { default as updateKahoot } from './kahoot.updateKahoot.service'
+export { default as deleteKahoot } from './kahoot.deleteKahoot.service'

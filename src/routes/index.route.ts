@@ -33,7 +33,7 @@ const configRoutes = (app: Application) => {
     return res.status(error.status || 500).json({
       code: error.status || 500,
       success: false,
-      data: {},
+      data: null,
       message: error.message
     })
   }

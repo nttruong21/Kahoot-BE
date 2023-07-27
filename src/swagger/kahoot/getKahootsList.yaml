@@ -1,18 +1,21 @@
 paths:
   /api/v1/kahoots:
-    put:
-      summary: Update kahoot
-      description: Update kahoot
+    get:
+      summary: Get kahoots list
+      description: Get kahoots list. Currently, there are 2 cases. Case 1, the request has the authorization header -> get own kahoots. Case 2, the request don't have the authorization header -> get public kahoots
       tags:
         - Kahoot
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateKahootBodyData'
-        required: true
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: OK
@@ -27,10 +30,10 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: object
+                    $ref: '#/components/schemas/GetKahootsListResponse'
                   message:
                     type: string
-                    example: 'Update kahoot successfully'
+                    example: 'Create kahoot successfully'
 
         '500':
           description: Internal Server Error

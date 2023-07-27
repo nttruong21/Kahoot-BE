@@ -1,0 +1,25 @@
+components:
+  schemas:
+    # [Response]
+    GetKahootsListResponse:
+      type: object
+      description: Get kahoots list response
+      properties:
+        id:
+          type: number
+        coverImage:
+          type: string
+          nullable: true
+        title:
+          type: string
+        numberOfQuestion:
+          type: number
+        userId:
+          type: number
+          nullable: true
+        username:
+          type: string
+          nullable: true
+        userImage:
+          type: string
+          nullable: true

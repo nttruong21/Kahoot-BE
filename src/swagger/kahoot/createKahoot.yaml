@@ -32,17 +32,6 @@ paths:
                     type: string
                     example: 'Create kahoot successfully'
 
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              example:
-                code: 400
-                success: false
-                data: {}
-                message: Invalid email
         '500':
           description: Internal Server Error
           content:
