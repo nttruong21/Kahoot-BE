@@ -4,10 +4,10 @@ import createError from 'http-errors'
 import logging from '../../../utils/logging.util'
 import { VisibleScope } from '../../../enums/kahoot.enum'
 import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
+import { SummaryPublicKahoot } from '../../../types/kahoot.type'
 
 const getKahootsListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const sessionUserId = req.user && req.user.id ? req.user.id : null
     const page = req.params['page'] ? +req.params['page'] : 1
     const limit = req.params['limit'] ? +req.params['limit'] : 10
 
@@ -18,47 +18,25 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
       return next(createError(400, 'Invalid limit'))
     }
 
-    if (sessionUserId && Number.isInteger(sessionUserId)) {
-      // Get own kahoots
-      const kahootsResponse = await kahootServices.getKahoots({
-        userId: sessionUserId,
-        offset: (page - 1) * limit,
-        limit
-      })
-      if (!kahootsResponse) {
-        return next(createError(500))
-      }
-
-      return res.status(200).json({
-        code: 200,
-        success: true,
-        data: kahootsResponse.map((kahoot) => ({
-          ...kahoot,
-          numberOfQuestion: Number(kahoot.numberOfQuestion)
-        })),
-        message: 'Get own kahoots list successfully'
-      })
-    } else {
-      // Get public kahoots
-      const kahootsResponse = await kahootServices.getKahoots({
-        scope: VisibleScope.public,
-        offset: (page - 1) * limit,
-        limit
-      })
-      if (!kahootsResponse) {
-        return next(createError(500))
-      }
-
-      return res.status(200).json({
-        code: 200,
-        success: true,
-        data: kahootsResponse.map((kahoot) => ({
-          ...kahoot,
-          numberOfQuestion: Number(kahoot.numberOfQuestion)
-        })),
-        message: 'Get public kahoots list successfully'
-      })
+    // Get public kahoots
+    const kahootsResponse = (await kahootServices.getKahoots({
+      scope: VisibleScope.public,
+      offset: (page - 1) * limit,
+      limit
+    })) as SummaryPublicKahoot[]
+    if (!kahootsResponse) {
+      return next(createError(500))
     }
+
+    return res.status(200).json({
+      code: 200,
+      success: true,
+      data: kahootsResponse.map((kahoot) => ({
+        ...kahoot,
+        numberOfQuestion: Number(kahoot.numberOfQuestion)
+      })),
+      message: 'Get public kahoots list successfully'
+    })
   } catch (error) {
     logging.error('Get kahoots list controller has error', error)
     return next(createError(500))

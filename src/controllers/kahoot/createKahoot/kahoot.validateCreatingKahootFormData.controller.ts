@@ -1,6 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
 import validator from 'validator'
-import createError from 'http-errors'
 
 import { QuestionPoint, QuestionType, Theme, VisibleScope } from '../../../enums/kahoot.enum'
 import { Kahoot, TrueOrFalseQuestion, QuizQuestion } from '../../../models/kahoot.model'
@@ -47,14 +45,14 @@ const validateCreatingKahootFormDataController = (kahootBodyData: Kahoot): strin
     }
 
     // Question time limit
-    if (!question.point || !Number.isInteger(question.point) || question.timeLimit < 10) {
+    if (!question.timeLimit || !Number.isInteger(question.timeLimit) || question.timeLimit < 10) {
       isInvalidQuestion = true
       invalidQuestionMessage = 'Invalid question time limit'
       return
     }
 
     // Question point
-    if (!question.point || !Number.isInteger(question.point) || !(question.point in QuestionPoint)) {
+    if (!Number.isInteger(question.point) || !(question.point in QuestionPoint)) {
       isInvalidQuestion = true
       invalidQuestionMessage = 'Invalid question point'
       return

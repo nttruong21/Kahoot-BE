@@ -18,6 +18,9 @@ const createKahootController = async (req: Request, res: Response, next: NextFun
       return next(createError(500))
     }
 
+    // logging.info('Fields:', fields)
+    // logging.info('Files:', files)
+
     // Get body data
     const kahootBodyData: Kahoot = fields['kahoot'] ? JSON.parse(fields['kahoot'][0]) : null
     kahootBodyData.userId = req.user.id
@@ -26,6 +29,7 @@ const createKahootController = async (req: Request, res: Response, next: NextFun
     // Validate kahoot body
     const validateError = validateCreatingKahootFormDataController(kahootBodyData)
     if (validateError) {
+      console.log(validateError)
       return next(createError(400, validateError))
     }
 
