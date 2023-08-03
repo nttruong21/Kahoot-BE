@@ -23,3 +23,21 @@ components:
         userImage:
           type: string
           nullable: true
+
+    GetOwnKahootsListResponse:
+      type: object
+      description: Get kahoots list response
+      properties:
+        id:
+          type: number
+        coverImage:
+          type: string
+          nullable: true
+        title:
+          type: string
+        numberOfQuestion:
+          type: number
+        visibleScope:
+          type: string
+        createdAt:
+          type: number

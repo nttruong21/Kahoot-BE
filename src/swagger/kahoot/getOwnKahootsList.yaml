@@ -1,10 +1,12 @@
 paths:
-  /api/v1/kahoots:
+  /api/v1/kahoots/list/own:
     get:
-      summary: Get kahoots list
-      description: Get kahoots list.
+      summary: Get own kahoots list
+      description: Get own kahoots list.
       tags:
         - Kahoot
+      security:
+        - bearerAuth: []
       parameters:
         - in: query
           name: page
@@ -30,7 +32,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetKahootsListResponse'
+                    $ref: '#/components/schemas/GetOwnKahootsListResponse'
                   message:
                     type: string
                     example: 'Create kahoot successfully'

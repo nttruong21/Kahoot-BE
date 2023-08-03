@@ -107,7 +107,7 @@ const googleSignInController = async (req: Request, res: Response, next: NextFun
       id: userId
     }
     const accessToken = await jwtServices.signAccessTokenService(payload)
-    const refreshToken = await jwtServices.signRefreshTokenService(payload)
+    const refreshToken = await jwtServices.signRefreshTokenService({ payload })
 
     // Success response
     return res.status(200).json({

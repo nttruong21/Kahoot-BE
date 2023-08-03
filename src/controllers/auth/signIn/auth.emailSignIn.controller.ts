@@ -58,7 +58,7 @@ const emailSignInController = async (req: Request, res: Response, next: NextFunc
       id: account.id
     }
     const accessToken: string = await jwtServices.signAccessTokenService(payload)
-    const refreshToken = await jwtServices.signRefreshTokenService(payload)
+    const refreshToken = await jwtServices.signRefreshTokenService({ payload })
 
     // Get user
     const user = await userServices.getUser({ id: account.id })

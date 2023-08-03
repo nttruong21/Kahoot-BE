@@ -17,16 +17,23 @@ const refreshAccessTokenController = async (req: Request, res: Response, next: N
     }
 
     // Verify refresh token
-    const payload = await jwtServices.verifyRefreshTokenService(refreshToken)
+    const verifyResponse = await jwtServices.verifyRefreshTokenService(refreshToken)
 
     // Sign new access token
-    const newAccessToken = await jwtServices.signAccessTokenService(payload)
+    const newAccessToken = await jwtServices.signAccessTokenService(verifyResponse.payload)
+
+    // Sign new refresh token
+    const newRefreshToken = await jwtServices.signRefreshTokenService({
+      payload: verifyResponse.payload,
+      exp: verifyResponse.exp
+    })
 
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
-        access_token: newAccessToken
+        access_token: newAccessToken,
+        refresh_token: newRefreshToken
       },
       message: 'Refresh access token successfully'
     })

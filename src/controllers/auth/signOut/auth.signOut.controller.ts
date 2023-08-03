@@ -18,14 +18,14 @@ const signOutController = async (req: Request, res: Response, next: NextFunction
       return next(createError(400, 'Invalid refresh token'))
     }
 
-    const { id: refreshTokenPayloadId } = await jwtServices.verifyRefreshTokenService(refreshToken)
+    const verifyResponse = await jwtServices.verifyRefreshTokenService(refreshToken)
 
-    if (!refreshTokenPayloadId) {
+    if (!verifyResponse.payload.id) {
       return next(createError(400))
     }
 
     // Remove on redis
-    redisClient.del(refreshTokenPayloadId.toString())
+    redisClient.del(verifyResponse.payload.id.toString())
 
     // Success response
     return res.status(200).json({
