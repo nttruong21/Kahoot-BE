@@ -19,7 +19,6 @@ const signRefreshTokenService = async ({ payload, exp }: { payload: TokenPayload
         }
         if (token) {
           // Save refresh token on redis
-          console.log('expiresTime: ', expiresTime)
           await redisClient.set(payload.id.toString(), token, {
             EX: expiresTime
           })

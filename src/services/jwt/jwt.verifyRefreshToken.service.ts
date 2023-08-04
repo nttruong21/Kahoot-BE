@@ -17,8 +17,6 @@ const verifyRefreshTokenService = (
         // Get payload
         const { id, exp } = decoded
 
-        console.log(decoded)
-
         // Get refresh token by id in redis
         const refreshTokenOnRedis = await redisClient.get(id.toString())
         if (refreshTokenOnRedis === null || refreshToken !== refreshTokenOnRedis) {
