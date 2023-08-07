@@ -2,6 +2,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 
 import redisClient from '../../configs/redis.config'
 import { TokenPayload } from '../../types/tokenPayload.type'
+import logging from '../../utils/logging.util'
 
 const verifyRefreshTokenService = (
   refreshToken: string
@@ -19,6 +20,9 @@ const verifyRefreshTokenService = (
 
         // Get refresh token by id in redis
         const refreshTokenOnRedis = await redisClient.get(id.toString())
+
+        logging.info('Refresh token that client sent:', refreshToken)
+        logging.info('Refresh token on redis:', refreshTokenOnRedis)
         if (refreshTokenOnRedis === null || refreshToken !== refreshTokenOnRedis) {
           reject('Invalid refresh token')
         } else {
