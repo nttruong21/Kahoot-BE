@@ -25,7 +25,7 @@ const signOutController = async (req: Request, res: Response, next: NextFunction
     }
 
     // Remove on redis
-    redisClient.del(verifyResponse.payload.id.toString())
+    await redisClient.del(verifyResponse.payload.id.toString())
 
     // Success response
     return res.status(200).json({
