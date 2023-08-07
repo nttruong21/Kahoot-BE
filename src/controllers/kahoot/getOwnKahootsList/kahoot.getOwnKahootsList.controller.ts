@@ -3,12 +3,11 @@ import createError from 'http-errors'
 
 import logging from '../../../utils/logging.util'
 import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
-import { SummaryUserKahoot } from '../../../types/kahoot.type'
 
 const getOwnKahootsListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const page = req.params['page'] ? +req.params['page'] : 1
-    const limit = req.params['limit'] ? +req.params['limit'] : 10
+    const page = req.query['page'] ? +req.query['page'] : 1
+    const limit = req.query['limit'] ? +req.query['limit'] : 5
 
     if (!page || !Number.isInteger(page) || page < 1) {
       return next(createError(400, 'Invalid page'))
@@ -18,11 +17,11 @@ const getOwnKahootsListController = async (req: Request, res: Response, next: Ne
     }
 
     // Get own kahoots
-    const kahootsResponse = (await kahootServices.getKahoots({
+    const kahootsResponse = await kahootServices.getKahoots({
       userId: req.user.id,
       offset: (page - 1) * limit,
       limit
-    })) as SummaryUserKahoot[]
+    })
     if (!kahootsResponse) {
       return next(createError(500))
     }

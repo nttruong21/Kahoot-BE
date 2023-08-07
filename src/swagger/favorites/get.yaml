@@ -1,10 +1,12 @@
 paths:
-  /api/v1/kahoots:
+  /api/v1/favorites:
     get:
-      summary: Get kahoots list
-      description: Get kahoots list.
+      summary: Get favorite kahoots
+      description: Get favorite kahoots
       tags:
-        - Kahoot
+        - Favorites
+      security:
+        - bearerAuth: []
       parameters:
         - in: query
           name: page
@@ -33,7 +35,7 @@ paths:
                     $ref: '#/components/schemas/GetKahootsListResponse'
                   message:
                     type: string
-                    example: 'Create kahoot successfully'
+                    example: 'Get favorite kahoots successfully'
 
         '500':
           description: Internal Server Error

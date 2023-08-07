@@ -5,6 +5,7 @@ import createError from 'http-errors'
 import { swaggerDocs } from '../configs/swagger.config'
 import authRouter from './auth.route'
 import kahootRouter from './kahoot.route'
+import favoritesRouter from './favorites.route'
 
 const configRoutes = (app: Application) => {
   // Swagger
@@ -15,6 +16,9 @@ const configRoutes = (app: Application) => {
 
   // Kahoot
   app.use('/dacnnt2/api/v1/kahoots', kahootRouter)
+
+  // Favorite
+  app.use('/dacnnt2/api/v1/favorites', favoritesRouter)
 
   app.get('/dacnnt2/api/v1', (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({

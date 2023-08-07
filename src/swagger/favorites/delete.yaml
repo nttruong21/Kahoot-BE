@@ -1,21 +1,23 @@
 paths:
-  /api/v1/kahoots:
-    get:
-      summary: Get kahoots list
-      description: Get kahoots list.
+  /api/v1/favorites:
+    delete:
+      summary: Delete favorite kahoot
+      description: Delete favorite kahoot
       tags:
-        - Kahoot
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            default: 5
+        - Favorites
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kahootId:
+                  type: number
+              required:
+                - kahootId
+        required: true
       responses:
         '200':
           description: OK
@@ -30,10 +32,15 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetKahootsListResponse'
+                    type: object
+                    properties:
+                      userId:
+                        type: number
+                      kahootId:
+                        type: number
                   message:
                     type: string
-                    example: 'Create kahoot successfully'
+                    example: 'Delete kahoot successfully'
 
         '500':
           description: Internal Server Error

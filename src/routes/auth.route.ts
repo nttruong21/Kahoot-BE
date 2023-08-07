@@ -3,8 +3,6 @@ import { Router } from 'express'
 import AuthController from '../controllers/auth/auth.index.controller'
 import * as middlewares from '../middlewares/index.middleware'
 
-// Temp
-
 const authRouter = Router()
 
 // Email/password sign in

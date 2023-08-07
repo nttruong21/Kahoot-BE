@@ -1,23 +1,26 @@
 paths:
-  /api/v1/kahoots/list/own:
-    get:
-      summary: Get own kahoots list
-      description: Get own kahoots list.
+  /api/v1/favorites:
+    post:
+      summary: Create favorite kahoot
+      description: Create favorite kahoot
       tags:
-        - Kahoot
+        - Favorites
       security:
         - bearerAuth: []
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            default: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: number
+                kahootId:
+                  type: number
+              required:
+                - userId
+                - kahootId
+        required: true
       responses:
         '200':
           description: OK
@@ -32,10 +35,15 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetKahootsListResponse'
+                    type: object
+                    properties:
+                      userId:
+                        type: number
+                      kahootId:
+                        type: number
                   message:
                     type: string
-                    example: 'Create kahoot successfully'
+                    example: 'Create favorite kahoot successfully'
 
         '500':
           description: Internal Server Error
