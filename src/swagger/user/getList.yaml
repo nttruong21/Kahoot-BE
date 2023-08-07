@@ -1,10 +1,10 @@
 paths:
-  /api/v1/kahoots:
+  /api/v1/users/list:
     get:
-      summary: Get kahoots list
-      description: Get kahoots list.
+      summary: Get users list
+      description: Get users list.
       tags:
-        - Kahoot
+        - User
       parameters:
         - in: query
           name: page
@@ -30,12 +30,19 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/GetKahootsListResponse'
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      name:
+                        type: string
+                      kahoots:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/GetKahootsListResponse'
                   message:
                     type: string
-                    example: 'Get kahoots list successfully'
+                    example: 'Create kahoot successfully'
 
         '500':
           description: Internal Server Error

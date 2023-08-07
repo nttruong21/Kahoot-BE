@@ -18,7 +18,7 @@ authRouter.post('/sign-in/google', AuthController.signInByGoogle)
 authRouter.post('/sign-up', AuthController.signUp)
 
 // Sign out
-authRouter.post('/sign-out', middlewares.validateAccessToken, AuthController.signOut)
+authRouter.post('/sign-out', AuthController.signOut)
 
 // Send OTP
 authRouter.post('/send-otp', middlewares.validateSendingOtpRequest, AuthController.sendOtp)

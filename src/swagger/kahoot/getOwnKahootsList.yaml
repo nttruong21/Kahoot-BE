@@ -32,7 +32,9 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetKahootsListResponse'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GetKahootsListResponse'
                   message:
                     type: string
                     example: 'Create kahoot successfully'

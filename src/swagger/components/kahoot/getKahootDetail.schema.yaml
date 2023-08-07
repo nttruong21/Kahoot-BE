@@ -7,6 +7,10 @@ components:
       properties:
         userId:
           type: number
+        username:
+          type: string
+        userImage:
+          type: string
         id:
           type: number
         coverImage:

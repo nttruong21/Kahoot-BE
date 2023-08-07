@@ -3,11 +3,6 @@ import logging from '../../utils/logging.util'
 import { executeQuery } from '../../configs/database.config'
 import { UserModel } from '../../models/user.model'
 
-interface Parameters {
-  id?: number
-  username?: string
-}
-
 const getUserByUsernameService = async (parameters: { id?: number; username?: string }) => {
   try {
     let query
