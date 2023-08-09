@@ -9,6 +9,7 @@ const swaggerOptions: Options = {
       description: 'Kahoot APIs'
     },
     servers: [
+      { url: 'https://aiworks.vn/dacnnt2' },
       {
         url: 'http://localhost:5000'
       }
