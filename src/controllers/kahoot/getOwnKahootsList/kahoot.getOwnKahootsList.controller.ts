@@ -29,11 +29,14 @@ const getOwnKahootsListController = async (req: Request, res: Response, next: Ne
     return res.status(200).json({
       code: 200,
       success: true,
-      data: kahootsResponse.map((kahoot) => ({
-        ...kahoot,
-        createdAt: new Date(kahoot.createdAt).getTime(),
-        numberOfQuestion: Number(kahoot.numberOfQuestion)
-      })),
+      data: {
+        kahoots: kahootsResponse.map((kahoot) => ({
+          ...kahoot,
+          createdAt: new Date(kahoot.createdAt).getTime(),
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })),
+        is_over: kahootsResponse.length < limit
+      },
       message: 'Get own kahoots list successfully'
     })
   } catch (error) {
