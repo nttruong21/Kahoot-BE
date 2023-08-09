@@ -32,7 +32,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetOwnKahootsListResponse'
+                    $ref: '#/components/schemas/GetKahootsListResponse'
                   message:
                     type: string
                     example: 'Get own kahoots list successfully'
