@@ -1,5 +1,5 @@
 paths:
-  /api/v1/kahoots:
+  /api/v1/kahoots/list:
     get:
       summary: Get kahoots list
       description: Get kahoots list.

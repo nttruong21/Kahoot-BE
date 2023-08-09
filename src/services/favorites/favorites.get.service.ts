@@ -1,5 +1,5 @@
 import { executeQuery } from '../../configs/database.config'
-import { SummaryKahoot } from '../../types/kahoot.type'
+import { KahootSummary } from '../../types/kahoot.type'
 import logging from '../../utils/logging.util'
 
 const getFavoriteKahootsService = async ({
@@ -10,7 +10,7 @@ const getFavoriteKahootsService = async ({
   userId: number
   limit: number
   offset: number
-}): Promise<SummaryKahoot[] | undefined> => {
+}): Promise<KahootSummary[] | undefined> => {
   try {
     const query = `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, 
       kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, 
@@ -26,7 +26,7 @@ const getFavoriteKahootsService = async ({
       ORDER BY favoriteId DESC
       LIMIT ? OFFSET ?`
     const params = [userId, userId, limit, offset]
-    return executeQuery<SummaryKahoot[]>(query, params)
+    return executeQuery<KahootSummary[]>(query, params)
   } catch (error) {
     logging.error('Get favorite kahoots service has error:', error)
     throw error

@@ -5,22 +5,29 @@ components:
       type: object
       description: Get kahoots list response
       properties:
-        id:
-          type: number
-        coverImage:
-          type: string
-          nullable: true
-        title:
-          type: string
-        visibleScope:
-          type: string
-        createdAt:
-          type: number
-        numberOfQuestion:
-          type: number
-        userId:
-          type: number
-        username:
-          type: string
-        userImage:
-          type: string
+        kahoots:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              coverImage:
+                type: string
+                nullable: true
+              title:
+                type: string
+              visibleScope:
+                type: string
+              createdAt:
+                type: number
+              numberOfQuestion:
+                type: number
+              userId:
+                type: number
+              username:
+                type: string
+              userImage:
+                type: string
+        is_over:
+          type: boolean

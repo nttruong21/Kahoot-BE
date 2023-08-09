@@ -1,24 +1,25 @@
 import logging from '../../utils/logging.util'
 import { VisibleScope } from '../../enums/kahoot.enum'
 import { executeQuery } from '../../configs/database.config'
-import { SummaryKahoot } from '../../types/kahoot.type'
+import { KahootSummary } from '../../types/kahoot.type'
 
 const getKahootsService = async (args: {
   userId?: number
   scope?: VisibleScope
-  offset: number
-  limit: number
-}): Promise<SummaryKahoot[] | undefined> => {
+  offset?: number
+  limit?: number
+}): Promise<KahootSummary[] | undefined> => {
   try {
     // Get by user id
     if (args.userId) {
-      const query = `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, COUNT(questions.id) AS numberOfQuestion
+      const query =
+        `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, COUNT(questions.id) AS numberOfQuestion
 				FROM kahoots, questions, users
 				WHERE kahoots.user_id = ? AND questions.kahoot_id = kahoots.id
-				GROUP BY kahoots.id
-				LIMIT ? OFFSET ?`
-      const params = [args.userId, args.limit, args.offset]
-      return await executeQuery<SummaryKahoot[]>(query, params)
+				GROUP BY kahoots.id` + (args.limit && args.offset ? 'LIMIT ? OFFSET ?' : '')
+
+      const params = args.limit && args.offset ? [args.userId, args.limit, args.offset] : [args.userId]
+      return await executeQuery<KahootSummary[]>(query, params)
     }
 
     // Get by scope
@@ -29,7 +30,7 @@ const getKahootsService = async (args: {
 				GROUP BY kahoots.id
 				LIMIT ? OFFSET ?`
       const params = [args.scope, args.limit, args.offset]
-      return await executeQuery<SummaryKahoot[]>(query, params)
+      return await executeQuery<KahootSummary[]>(query, params)
     }
   } catch (error) {
     logging.error('Get kahoots service has error', error)

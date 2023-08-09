@@ -30,10 +30,13 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
     return res.status(200).json({
       code: 200,
       success: true,
-      data: kahootsResponse.map((kahoot) => ({
-        ...kahoot,
-        numberOfQuestion: Number(kahoot.numberOfQuestion)
-      })),
+      data: {
+        kahoots: kahootsResponse.map((kahoot) => ({
+          ...kahoot,
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })),
+        is_over: kahootsResponse.length < limit
+      },
       message: 'Get public kahoots list successfully'
     })
   } catch (error) {

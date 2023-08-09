@@ -1,4 +1,4 @@
-interface SummaryKahoot {
+interface KahootSummary {
   id: number
   title: string
   coverImage: string
@@ -10,4 +10,4 @@ interface SummaryKahoot {
   userImage: string
 }
 
-export type { SummaryKahoot }
+export type { KahootSummary }

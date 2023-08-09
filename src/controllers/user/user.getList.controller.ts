@@ -3,7 +3,7 @@ import createError from 'http-errors'
 import logging from '../../utils/logging.util'
 import * as userServices from '../../services/user/user.index.service'
 import * as kahootServices from '../../services/kahoot/kahoot.index.service'
-import { SummaryKahoot } from '../../types/kahoot.type'
+import { KahootSummary } from '../../types/kahoot.type'
 
 const getUsersListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,7 +18,7 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
     const result: Array<{
       id: number
       name: string
-      kahoots: SummaryKahoot[]
+      kahoots: KahootSummary[]
     }> = []
 
     await Promise.all(
