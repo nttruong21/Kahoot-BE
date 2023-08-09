@@ -32,12 +32,10 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/GetKahootsListResponse'
+                    $ref: '#/components/schemas/GetOwnKahootsListResponse'
                   message:
                     type: string
-                    example: 'Create kahoot successfully'
+                    example: 'Get own kahoots list successfully'
 
         '500':
           description: Internal Server Error
