@@ -28,7 +28,7 @@ const getKahootsService = async (args: {
       const query = `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, COUNT(questions.id) AS numberOfQuestion
         FROM questions
         LEFT JOIN (users, kahoots) ON (kahoots.visible_scope = ? AND kahoots.user_id = users.id)
-				WHERE kahoots.visible_scope=? AND questions.kahoot_id = kahoots.id AND users.id = kahoots.user_id
+				WHERE questions.kahoot_id = kahoots.id
 				GROUP BY kahoots.id
 				LIMIT ? OFFSET ?`
       const params = [args.scope, args.limit, args.offset]
