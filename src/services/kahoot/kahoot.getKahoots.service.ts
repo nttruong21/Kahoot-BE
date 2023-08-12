@@ -18,7 +18,6 @@ const getKahootsService = async (args: {
 				WHERE questions.kahoot_id = kahoots.id
 				GROUP BY kahoots.id
         LIMIT ? OFFSET ?`
-
       const params = [args.userId, args.limit, args.offset]
       return await executeQuery<KahootSummary[]>(query, params)
     }
@@ -32,6 +31,18 @@ const getKahootsService = async (args: {
 				GROUP BY kahoots.id
 				LIMIT ? OFFSET ?`
       const params = [args.scope, args.limit, args.offset]
+      return await executeQuery<KahootSummary[]>(query, params)
+    }
+
+    // Get by scope and user id
+    if (args.scope && args.userId) {
+      const query = `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, COUNT(questions.id) AS numberOfQuestion
+        FROM questions
+        LEFT JOIN (users, kahoots) ON (kahoots.visible_scope = ? AND kahoots.user_id = ? AND kahoots.user_id = users.id)
+				WHERE questions.kahoot_id = kahoots.id
+				GROUP BY kahoots.id
+				LIMIT ? OFFSET ?`
+      const params = [args.scope, args.userId, args.limit, args.offset]
       return await executeQuery<KahootSummary[]>(query, params)
     }
   } catch (error) {

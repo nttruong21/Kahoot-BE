@@ -9,6 +9,7 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
   try {
     const page = req.query['page'] ? +req.query['page'] : 1
     const limit = req.query['limit'] ? +req.query['limit'] : 5
+    const userId = req.query['userId'] ? +req.query['userId'] : undefined
 
     if (!page || !Number.isInteger(page) || page < 1) {
       return next(createError(400, 'Invalid page'))
@@ -20,6 +21,7 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
     // Get public kahoots
     const kahootsResponse = await kahootServices.getKahoots({
       scope: VisibleScope.public,
+      userId,
       offset: (page - 1) * limit,
       limit
     })
