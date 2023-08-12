@@ -17,6 +17,9 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
     if (!limit || !Number.isInteger(limit) || limit < 1) {
       return next(createError(400, 'Invalid limit'))
     }
+    if (userId && !Number.isInteger(userId)) {
+      return next(createError(400, 'Invalid user id'))
+    }
 
     // Get public kahoots
     const kahootsResponse = await kahootServices.getKahoots({

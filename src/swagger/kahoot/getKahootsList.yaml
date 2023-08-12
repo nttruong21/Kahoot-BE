@@ -16,6 +16,10 @@ paths:
           schema:
             type: integer
             default: 5
+        - in: query
+          name: userId
+          schema:
+            type: integer
       responses:
         '200':
           description: OK
