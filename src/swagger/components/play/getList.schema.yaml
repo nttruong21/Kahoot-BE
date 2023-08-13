@@ -1,0 +1,20 @@
+components:
+  schemas:
+    # [Body data]
+    GetPlaysListResponseData:
+      type: object
+      description: Get plays list response data
+      properties:
+        id:
+          type: number
+        userId:
+          type: number
+        createdAt:
+          type: number
+        kahootId:
+          type: number
+        kahootTitle:
+          type: string
+        assignmentId:
+          type: string
+          nullable: true

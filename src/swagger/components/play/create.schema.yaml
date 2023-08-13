@@ -1,0 +1,24 @@
+components:
+  schemas:
+    # [Body data]
+    CreatePlayBodyData:
+      type: object
+      description: Create play body data
+      properties:
+        kahootId:
+          type: number
+          nullable: true
+        assignmentId:
+          type: number
+          nullable: true
+        point:
+          type: number
+        answers:
+          type: array
+          items:
+            oneOf:
+              - type: number
+              - type: boolean
+      required:
+        - point
+        - answers

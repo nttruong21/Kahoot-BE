@@ -18,13 +18,13 @@ const getKahootDetailController = async (req: Request, res: Response, next: Next
     // 1. Get kahoot by id
     const kahoot = await kahootServices.getKahoot({ kahootId })
     if (!kahoot) {
-      return next(createError(400))
+      return next(createError(500))
     }
 
     // 2. Get questions by kahoot id
     const questions = await questionServices.getQuestionsByKahootId(kahootId)
     if (!questions || questions.length === 0) {
-      return next(createError(400))
+      return next(createError(500))
     }
 
     // 3. Check question, id type = quiz -> get answers
@@ -34,7 +34,7 @@ const getKahootDetailController = async (req: Request, res: Response, next: Next
           // Get answers
           const answers = await answerServices.getAnswers(question.id!)
           if (!answers || answers.length === 0) {
-            return next(createError(400))
+            return next(createError(500))
           }
           question.answers = answers
         }

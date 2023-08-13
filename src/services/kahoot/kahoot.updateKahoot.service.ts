@@ -5,7 +5,7 @@ import { executeQuery } from '../../configs/database.config'
 const updateKahootService = async (kahoot: Kahoot): Promise<void> => {
   try {
     const query =
-      'UPDATE kahoots SET cover_image = ?, title = ?, theme = ?, description = ?, media = ?, visible_scope = ?, updated_at = ? WHERE id = ?'
+      'UPDATE kahoots SET cover_image = ?, title = ?, theme = ?, description = ?, media = ?, visible_scope = ? WHERE id = ?'
     const params = [
       kahoot.coverImage,
       kahoot.title,
@@ -13,7 +13,6 @@ const updateKahootService = async (kahoot: Kahoot): Promise<void> => {
       kahoot.description,
       kahoot.media,
       kahoot.visibleScope,
-      new Date(),
       kahoot.id
     ]
     return await executeQuery(query, params)

@@ -1,0 +1,56 @@
+components:
+  schemas:
+    # [Body data]
+    GetPlayDetailResponseData:
+      type: object
+      description: Get play detail response data
+      properties:
+        id:
+          type: number
+        kahootId:
+          type: number
+        point:
+          type: number
+        title:
+          type: string
+        coverImage:
+          type: string
+          nullable: true
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              inOrder:
+                type: number
+              media:
+                type: string
+                nullable: true
+              question:
+                type: string
+              userAnswer:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  text:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    nullable: true
+              correctAnswer:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  text:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    nullable: true
+              isCorrect:
+                type: boolean

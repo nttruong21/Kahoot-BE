@@ -1,0 +1,56 @@
+paths:
+  /api/v1/plays/{id}:
+    get:
+      summary: Get play detail
+      description: Get play detail
+      tags:
+        - Play
+      parameters:
+        - in: query
+          name: kahootId
+          schema:
+            type: integer
+            nullable: true
+        - in: query
+          name: assignmentId
+          schema:
+            type: integer
+            nullable: true
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPlayDetailResponseData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                  message:
+                    type: string
+                    example: 'Get play detail successfully'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

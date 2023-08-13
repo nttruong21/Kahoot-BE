@@ -5,7 +5,7 @@ import { Kahoot } from '../../models/kahoot.model'
 const createKahootService = async (kahoot: Kahoot): Promise<number | null> => {
   try {
     const query =
-      'INSERT INTO kahoots(user_id, cover_image, title, theme, description, media, visible_scope, language, created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO kahoots(user_id, cover_image, title, theme, description, media, visible_scope, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
     const params = [
       kahoot.userId,
       kahoot.coverImage,
@@ -14,8 +14,7 @@ const createKahootService = async (kahoot: Kahoot): Promise<number | null> => {
       kahoot.description,
       kahoot.media,
       kahoot.visibleScope,
-      kahoot.language,
-      new Date()
+      kahoot.language
     ]
     const response = await executeQuery<any>(query, params)
     return response ? parseInt(response.insertId) : null

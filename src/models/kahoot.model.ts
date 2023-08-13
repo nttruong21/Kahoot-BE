@@ -21,7 +21,7 @@ interface Question {
   point: number
   question: string
   inOrder?: number
-  answer?: boolean
+  answer?: number
   answers?: Array<QuizAnswer>
 }
 
@@ -30,14 +30,14 @@ interface QuizQuestion extends Question {
 }
 
 interface TrueOrFalseQuestion extends Question {
-  answer: boolean
+  answer: number
 }
 
 interface QuizAnswer {
   id?: number
   text?: string
   image?: string
-  isCorrect: boolean
+  isCorrect: number
   inOrder?: number
 }
 

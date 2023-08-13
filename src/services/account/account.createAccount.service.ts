@@ -24,7 +24,7 @@ const createAccountService = async (type: AccountType, data: any): Promise<numbe
 
     if (query && params) {
       const response = await executeQuery<any>(query, params)
-      return parseInt(response.insertId)
+      return response ? parseInt(response.insertId) : null
     }
     return null
   } catch (error) {

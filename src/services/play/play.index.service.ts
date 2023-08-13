@@ -1,0 +1,5 @@
+export { default as create } from './play.create.service'
+export { default as createPlayAnswers } from './play.createPlayAnswers.service'
+export { default as getList } from './play.getList.service'
+export { default as getDetail } from './play.getDetail.service'
+export { default as getAnswers } from './play.getAnswers.service'
