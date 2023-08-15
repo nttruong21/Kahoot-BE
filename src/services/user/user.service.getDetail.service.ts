@@ -11,10 +11,10 @@ interface Response {
 const getUserDetail = async ({ userId }: { userId: number }) => {
   try {
     const query = `
-      SELECT users.id, users.name, users.image, COUNT(kahoots.id) AS numberOfKahoots
-      FROM users, kahoots
-      WHERE kahoots.user_id = users.id AND users.id = ?
-      GROUP BY users.id
+      SELECT users.id, users.name, users.image, COUNT(kahoots.id) 
+      FROM users 
+      LEFT JOIN kahoots ON kahoots.user_id = users.id 
+      WHERE users.id = ?;  
       `
     const params = [userId]
     const response = await executeQuery<Response[]>(query, params)
