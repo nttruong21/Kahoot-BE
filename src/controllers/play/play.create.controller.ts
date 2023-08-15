@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
-import validator from 'validator'
 
 import logging from '../../utils/logging.util'
 import * as playServices from '../../services/play/play.index.service'
@@ -9,7 +8,7 @@ interface RequestBody {
   kahootId: number | null
   assignmentId: number | null
   point: number
-  answers: Array<number | boolean>
+  answers: Array<number | boolean | null>
 }
 
 const createPlayController = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,23 +32,6 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
       return next(createError(400, 'Invalid answers'))
     }
 
-    let invalidAnswerValue = false
-    answers.forEach((answer) => {
-      if (invalidAnswerValue) {
-        return
-      }
-      if (
-        (!Number.isInteger(answer) && !validator.isBoolean(answer.toString())) ||
-        (Number.isInteger(answer) && (answer as number) < 1)
-      ) {
-        invalidAnswerValue = true
-        return
-      }
-    })
-    if (invalidAnswerValue) {
-      return next(createError(400, 'Invalid answer id value'))
-    }
-
     // Create play
     const createdPlayId = await playServices.create({
       userId: req.user.id,
@@ -62,10 +44,13 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
     }
 
     // Create play answers
-    await playServices.createPlayAnswers({
+    const response = await playServices.createPlayAnswers({
       playId: createdPlayId,
       answers
     })
+    if (!response) {
+      return next(createError(500, 'Create answers failure'))
+    }
 
     return res.status(200).json({
       code: 200,

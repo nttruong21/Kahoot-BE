@@ -3,7 +3,7 @@ import logging from '../../utils/logging.util'
 
 interface Args {
   playId: number
-  answers: Array<number | boolean>
+  answers: Array<number | boolean | null>
 }
 
 const createPlayAnswersService = async ({ playId, answers }: Args) => {
