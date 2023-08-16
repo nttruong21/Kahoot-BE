@@ -45,6 +45,7 @@ const getKahootDetailController = async (req: Request, res: Response, next: Next
 
     // Get number of players
     const numberOfPlayer = await playServices.countPlayOfKahoot(kahootId)
+    console.log(numberOfPlayer)
 
     // Get number of favorite
     const usersFavorite = await favoritesService.getUsersFavorite(kahootId)
