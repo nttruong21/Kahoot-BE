@@ -17,7 +17,7 @@ const countPlayOfKahootService = async (kahootId: number) => {
     const params = [kahootId]
     const response = await executeQuery<Response[]>(query, params)
     console.log(response)
-    return response && response.length > 0 ? response[0].count : 0
+    return response && response.length > 0 ? parseInt(response[0].count.toString()) : 0
   } catch (error) {
     logging.error('Count play of kahoot service has error:', error)
     throw error
