@@ -9,7 +9,7 @@ interface Response {
 const countPlayOfKahootService = async (kahootId: number) => {
   try {
     const query = `
-  		SELECT COUNT(plays.id) as count, kahoots.id AS kahootId, 
+  		SELECT COUNT(plays.id) as count, kahoots.id AS kahootId 
   		FROM kahoots, plays 
   		WHERE kahoots.id = ? AND plays.kahoot_id = kahoots.id 
   		GROUP BY kahoots.id;
