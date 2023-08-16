@@ -24,13 +24,18 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
           if (!kahoot) {
             return next(createError(500, 'Get kahoot failure'))
           }
+
+          // Get number of players
+          const numberOfPlayer = await playServices.countPlayerOfKahoot(play.kahootId)
+
           data.push({
             id: play.id,
             userId: play.userId,
             createdAt: +play.createdAt,
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
-            assignmentId: null
+            assignmentId: null,
+            numberOfPlayer
           })
         } else if (play.assignmentId) {
           // Get kahoot by assignment
@@ -40,13 +45,18 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
           if (!kahoot) {
             return next(createError(500, 'Get kahoot failure'))
           }
+
+          // Get number of players
+          const numberOfPlayer = await playServices.countPlayerOfKahoot(kahoot.id!)
+
           data.push({
             id: play.id,
             userId: play.userId,
             createdAt: +play.createdAt,
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
-            assignmentId: play.assignmentId
+            assignmentId: play.assignmentId,
+            numberOfPlayer
           })
         }
       })

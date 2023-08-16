@@ -6,7 +6,7 @@ interface Response {
   kahootId: number
 }
 
-const countPlayOfKahootService = async (kahootId: number) => {
+const countPlayerOfKahootService = async (kahootId: number) => {
   try {
     const query = `
   		SELECT COUNT(plays.id) as count, kahoots.id AS kahootId 
@@ -16,7 +16,6 @@ const countPlayOfKahootService = async (kahootId: number) => {
 		`
     const params = [kahootId]
     const response = await executeQuery<Response[]>(query, params)
-    console.log(response)
     return response && response.length > 0 ? parseInt(response[0].count.toString()) : 0
   } catch (error) {
     logging.error('Count play of kahoot service has error:', error)
@@ -24,4 +23,4 @@ const countPlayOfKahootService = async (kahootId: number) => {
   }
 }
 
-export default countPlayOfKahootService
+export default countPlayerOfKahootService

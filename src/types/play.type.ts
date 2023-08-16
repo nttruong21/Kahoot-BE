@@ -5,6 +5,7 @@ interface PlaySummary {
   kahootId: number | null
   kahootTitle: string
   assignmentId: number | null
+  numberOfPlayer: number
 }
 
 export type { PlaySummary }
