@@ -18,7 +18,6 @@ const getUserDetail = async ({ userId }: { userId: number }) => {
       `
     const params = [userId]
     const response = await executeQuery<Response[]>(query, params)
-    console.log(response)
     return response ? response[0] : null
   } catch (error) {
     logging.error('Get users list service has error:', error)

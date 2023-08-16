@@ -6,6 +6,8 @@ import { QuestionType } from '../../../enums/kahoot.enum'
 import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
 import * as questionServices from '../../../services/question/question.index.service'
 import * as answerServices from '../../../services/answer/answer.index.service'
+import * as playServices from '../../../services/play/play.index.service'
+import * as favoritesService from '../../../services/favorites/favorites.index.service'
 
 const getKahootDetailController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -41,11 +43,19 @@ const getKahootDetailController = async (req: Request, res: Response, next: Next
       })
     )
 
+    // Get number of players
+    const numberOfPlayer = await playServices.countPlayOfKahoot(kahootId)
+
+    // Get number of favorite
+    const usersFavorite = await favoritesService.getUsersFavorite(kahootId)
+
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
         ...kahoot,
+        numberOfPlayer,
+        usersFavorite: usersFavorite ? usersFavorite : [],
         questions: questions
       },
       message: 'Get kahoot detail successfully'

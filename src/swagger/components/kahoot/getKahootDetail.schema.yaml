@@ -28,6 +28,12 @@ components:
           nullable: true
         visibleScope:
           type: string
+        numberOfPlayer:
+          type: number
+        usersFavorite:
+          type: array
+          items:
+            type: number
         questions:
           type: array
           items:

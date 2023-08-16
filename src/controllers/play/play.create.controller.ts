@@ -25,7 +25,7 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
     if (assignmentId && !Number.isInteger(assignmentId)) {
       return next(createError(400, 'Invalid assignment id'))
     }
-    if (!point || !Number.isInteger(point) || point < 0) {
+    if (!Number.isInteger(point) || point < 0) {
       return next(createError(400, 'Invalid point'))
     }
     if (!answers || !Array.isArray(answers) || answers.length < 1) {
