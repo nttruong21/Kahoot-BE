@@ -73,6 +73,7 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
             inOrder: question.inOrder,
             media: question.media,
             question: question.question,
+            point: question.point,
             userAnswer: {
               id: userAnswers[index].answerId,
               text: userAnswers[index].text,
@@ -91,6 +92,7 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
             inOrder: question.inOrder,
             media: question.media,
             question: question.question,
+            point: question.point,
             userAnswer: userAnswers[index].tfAnswer,
             correctAnswer: question.answer,
             isCorrect: question.answer === userAnswers[index].tfAnswer

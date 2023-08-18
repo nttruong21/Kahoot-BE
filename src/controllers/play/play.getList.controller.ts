@@ -31,7 +31,7 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
           data.push({
             id: play.id,
             userId: play.userId,
-            createdAt: +play.createdAt,
+            createdAt: new Date(play.createdAt).getTime(),
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
             assignmentId: null,
@@ -52,7 +52,7 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
           data.push({
             id: play.id,
             userId: play.userId,
-            createdAt: +play.createdAt,
+            createdAt: new Date(play.createdAt).getTime(),
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
             assignmentId: play.assignmentId,

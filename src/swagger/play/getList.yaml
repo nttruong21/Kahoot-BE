@@ -7,12 +7,6 @@ paths:
         - Play
       security:
         - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GetPlaysListResponseData'
-        required: true
       responses:
         '200':
           description: OK
@@ -27,7 +21,7 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: object
+                    $ref: '#/components/schemas/GetPlaysListResponseData'
                   message:
                     type: string
                     example: 'Get plays list successfully'
