@@ -56,7 +56,9 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
       code: 200,
       success: true,
       data: {
-        id: createdPlayId
+        id: createdPlayId,
+        kahootId,
+        assignmentId
       },
       message: 'Create play successfully'
     })

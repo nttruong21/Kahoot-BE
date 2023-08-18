@@ -31,6 +31,12 @@ paths:
                     properties:
                       id:
                         type: number
+                      kahootId:
+                        type: number
+                        nullable: true
+                      assignmentId:
+                        type: number
+                        nullable: true
                   message:
                     type: string
                     example: 'Create play successfully'
