@@ -30,27 +30,33 @@ components:
                 nullable: true
               question:
                 type: string
+              point:
+                type: number
               userAnswer:
-                type: object
-                properties:
-                  id:
-                    type: number
-                  text:
-                    type: string
-                    nullable: true
-                  image:
-                    type: string
-                    nullable: true
+                oneOf:
+                  - type: boolean
+                  - type: object
+                    properties:
+                      id:
+                        type: number
+                      text:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
               correctAnswer:
-                type: object
-                properties:
-                  id:
-                    type: number
-                  text:
-                    type: string
-                    nullable: true
-                  image:
-                    type: string
-                    nullable: true
+                oneOf:
+                  - type: boolean
+                  - type: object
+                    properties:
+                      id:
+                        type: number
+                      text:
+                        type: string
+                        nullable: true
+                      image:
+                        type: string
+                        nullable: true
               isCorrect:
                 type: boolean
