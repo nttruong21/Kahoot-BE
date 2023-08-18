@@ -55,7 +55,9 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
     return res.status(200).json({
       code: 200,
       success: true,
-      data: null,
+      data: {
+        id: createdPlayId
+      },
       message: 'Create play successfully'
     })
   } catch (error) {
