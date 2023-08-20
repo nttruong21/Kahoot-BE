@@ -24,7 +24,7 @@ const createAssignmentController = async (req: Request, res: Response, next: Nex
       specialChars: false
     })
 
-    const createAssignmentResponse = await assignmentServices.create({ userId: req.user.id, kahootId, pin })
+    const createAssignmentResponse = await assignmentServices.create({ userId: req.user.id, kahootId, pin, expiredAt })
     if (!createAssignmentResponse) {
       return next(createError(500, 'Create assignment service has error'))
     }
