@@ -1,0 +1,45 @@
+paths:
+  /api/v1/assignments:
+    post:
+      summary: Create assignment
+      description: Create assignment
+      tags:
+        - Assignment
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssignmentBodyData'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/CreateAssignmentResponseData'
+                  message:
+                    type: string
+                    example: 'Create play successfully'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

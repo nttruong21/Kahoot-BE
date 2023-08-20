@@ -1,0 +1,28 @@
+components:
+  schemas:
+    # [Body data] Create assignment
+    CreateAssignmentBodyData:
+      type: object
+      description: Create assignment body data
+      properties:
+        kahootId:
+          type: number
+        expiredAt:
+          type: number
+      required:
+        - kahootId
+        - expiredAt
+
+    # [Response data] Sign in by email
+    CreateAssignmentResponseData:
+      type: object
+      description: Create assignment response data
+      properties:
+        id:
+          type: number
+        kahootId:
+          type: number
+        pin:
+          type: string
+        expiredAt:
+          type: number
