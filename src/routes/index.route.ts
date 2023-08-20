@@ -8,6 +8,7 @@ import kahootRouter from './kahoot.route'
 import favoritesRouter from './favorites.route'
 import userRouter from './user.route'
 import playRouter from './play.route'
+import assignmentRouter from './assignment.route'
 
 const configRoutes = (app: Application) => {
   // Swagger
@@ -27,6 +28,9 @@ const configRoutes = (app: Application) => {
 
   // Play
   app.use('/dacnnt2/api/v1/plays', playRouter)
+
+  // Assignment
+  app.use('/dacnnt2/api/v1/assignments', assignmentRouter)
 
   app.get('/dacnnt2/api/v1', (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({
