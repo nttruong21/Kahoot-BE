@@ -9,6 +9,8 @@ components:
           type: number
         userId:
           type: number
+        type:
+          type: string
         createdAt:
           type: number
         kahootId:

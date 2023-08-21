@@ -16,7 +16,7 @@ interface Response {
 const getPlaysListService = async ({ userId }: Args): Promise<Response[]> => {
   try {
     const query = `
-			SELECT id AS id, user_id AS userId, created_at AS createdAt, kahoot_id AS kahootId, assignment_id AS assignmentId
+			SELECT id AS id, user_id AS userId, created_at AS createdAt, kahoot_id AS kahootId, assignment_id AS assignmentId, type 
 			FROM plays
 			WHERE plays.user_id = ? 
 			ORDER BY createdAt DESC`

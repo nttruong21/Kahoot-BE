@@ -6,12 +6,13 @@ interface Args {
   kahootId: number | null
   assignmentId: number | null
   point: number
+  type: 'practice' | 'assignment'
 }
 
-const createPlayService = async ({ userId, kahootId, assignmentId, point }: Args) => {
+const createPlayService = async ({ userId, kahootId, assignmentId, type, point }: Args) => {
   try {
-    const query = 'INSERT INTO plays (user_id, kahoot_id, assignment_id, point) VALUES (?, ?, ?, ?)'
-    const params = [userId, kahootId, assignmentId, point]
+    const query = 'INSERT INTO plays (user_id, kahoot_id, assignment_id, type, point) VALUES (?, ?, ?, ?, ?)'
+    const params = [userId, kahootId, assignmentId, type, point]
     const response = await executeQuery<any>(query, params)
     return response ? parseInt(response.insertId) : null
   } catch (error) {
