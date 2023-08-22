@@ -9,6 +9,7 @@ import favoritesRouter from './favorites.route'
 import userRouter from './user.route'
 import playRouter from './play.route'
 import assignmentRouter from './assignment.route'
+import SharedRouter from './shared.route'
 
 const configRoutes = (app: Application) => {
   // Swagger
@@ -31,6 +32,9 @@ const configRoutes = (app: Application) => {
 
   // Assignment
   app.use('/dacnnt2/api/v1/assignments', assignmentRouter)
+
+  // Shared
+  app.use('/dacnnt2/api/v1/shared', SharedRouter)
 
   app.get('/dacnnt2/api/v1', (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json({

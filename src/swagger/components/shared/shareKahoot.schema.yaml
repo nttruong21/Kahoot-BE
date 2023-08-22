@@ -1,0 +1,16 @@
+components:
+  schemas:
+    # [Body data]
+    ShareKahootBodyData:
+      type: object
+      description: Share kahoot body data
+      properties:
+        kahootId:
+          type: number
+        usernames:
+          type: array
+          items:
+            type: string
+      required:
+        - kahootId
+        - usernames
