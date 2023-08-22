@@ -10,12 +10,10 @@ paths:
           name: id
           schema:
             type: integer
-          required: true
         - in: query
           name: pin
           schema:
             type: string
-          required: true
       responses:
         '200':
           description: OK

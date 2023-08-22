@@ -9,28 +9,19 @@ import * as answerServices from '../../services/answer/answer.index.service'
 
 const getAssignmentDetailController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = req.query.id ? +req.query.id : null
-    const pin = req.query.pin ? req.query.pin : null
+    const pin = req.query.pin ? req.query.pin.toString() : null
 
-    if (!id || !Number.isInteger(id) || id < 1) {
-      return next(createError(400, 'Invalid assignment id'))
-    }
     if (!pin) {
       return next(createError(400, 'Invalid pin'))
     }
 
-    // Get assignment by id
-    const assignment = await assignmentServices.getDetail({ id })
+    // Get assignment by pin
+    const assignment = await assignmentServices.getDetail({ pin })
     if (!assignment) {
-      return next(createError(500, `Can not find assignment with this id: ${id}`))
+      return next(createError(500, `Can not find assignment with this pin: ${pin}`))
     }
     if (!assignment.kahoot_id) {
-      return next(createError(500, `Can not find kahoot id with this assignment id: ${id}`))
-    }
-
-    // Check pin
-    if (assignment.pin !== pin) {
-      return next(createError(400, `Pin is not correct (Assignment pin: ${assignment.pin}, client send pin: ${pin})`))
+      return next(createError(500, `Can not find kahoot id with this pin: ${pin}`))
     }
 
     // Get kahoot detail
@@ -65,7 +56,7 @@ const getAssignmentDetailController = async (req: Request, res: Response, next: 
       success: true,
       data: {
         ...kahoot,
-        id,
+        id: assignment.id,
         kahootId: kahoot.id,
         questions: questions
       },
