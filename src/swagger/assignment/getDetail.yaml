@@ -1,5 +1,5 @@
 paths:
-  /api/v1/assignments/detail/{id}:
+  /api/v1/assignments/detail:
     get:
       summary: Get assignment detail
       description: Get assignment detail
