@@ -53,23 +53,13 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
       return next(createError(500, 'Create answers failure'))
     }
 
-    // If this is assignment, get top 5 users
-    let topPlayers = null
-    if (assignmentId) {
-      const topPlayers = await playServices.getTopPlayers({ assignmentId, limit: 5 })
-      if (!topPlayers) {
-        return next(createError(500, 'Get top layers failure'))
-      }
-    }
-
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
         id: createdPlayId,
         kahootId,
-        assignmentId,
-        topPlayers
+        assignmentId
       },
       message: 'Create play successfully'
     })

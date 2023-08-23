@@ -37,23 +37,6 @@ paths:
                       assignmentId:
                         type: number
                         nullable: true
-                      topPlayers:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: number
-                              description: play id
-                            userId:
-                              type: number
-                            point:
-                              type: number
-                            username:
-                              type: string
-                            userImage:
-                              type: string
-                        nullable: true
                   message:
                     type: string
                     example: 'Create play successfully'

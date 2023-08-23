@@ -9,6 +9,9 @@ components:
           type: number
         kahootId:
           type: number
+        assignmentId:
+          type: number
+          nullable: true
         point:
           type: number
         title:
@@ -60,3 +63,20 @@ components:
                         nullable: true
               isCorrect:
                 type: boolean
+        topPlayers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: play id
+              userId:
+                type: number
+              point:
+                type: number
+              username:
+                type: string
+              userImage:
+                type: string
+          nullable: true
