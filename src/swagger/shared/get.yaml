@@ -1,10 +1,10 @@
 paths:
-  /api/v1/favorites:
+  /api/v1/shared:
     get:
-      summary: Get favorite kahoots
-      description: Get favorite kahoots
+      summary: Get shared kahoots
+      description: Get shared kahoots
       tags:
-        - Favorites
+        - Shared
       security:
         - bearerAuth: []
       parameters:
@@ -32,10 +32,10 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetFavoriteKahootsListResponse'
+                    $ref: '#/components/schemas/GetSharedKahootsListResponse'
                   message:
                     type: string
-                    example: 'Get favorite kahoots successfully'
+                    example: 'Get shared kahoots successfully'
 
         '500':
           description: Internal Server Error

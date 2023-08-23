@@ -45,12 +45,21 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
     }
 
     // Create play answers
-    const response = await playServices.createPlayAnswers({
+    const isCreateAnswersSuccess = await playServices.createPlayAnswers({
       playId: createdPlayId,
       answers
     })
-    if (!response) {
+    if (!isCreateAnswersSuccess) {
       return next(createError(500, 'Create answers failure'))
+    }
+
+    // If this is assignment, get top 5 users
+    let topPlayers = null
+    if (assignmentId) {
+      const topPlayers = await playServices.getTopPlayers({ assignmentId, limit: 5 })
+      if (!topPlayers) {
+        return next(createError(500, 'Get top layers failure'))
+      }
     }
 
     return res.status(200).json({
@@ -59,7 +68,8 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
       data: {
         id: createdPlayId,
         kahootId,
-        assignmentId
+        assignmentId,
+        topPlayers
       },
       message: 'Create play successfully'
     })

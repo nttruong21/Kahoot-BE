@@ -1,22 +1,21 @@
 import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
-
 import logging from '../../utils/logging.util'
-import * as favoritesServices from '../../services/favorites/favorites.index.service'
+import * as sharedServices from '../../services/shared/shared.index.service'
 
-const getFavoriteKahootsController = async (req: Request, res: Response, next: NextFunction) => {
+const getSharedKahootsController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = req.query['page'] ? +req.query['page'] : 1
     const limit = req.query['limit'] ? +req.query['limit'] : 5
 
-    // Get favorite kahoots
-    const response = await favoritesServices.get({
+    // Get shared kahoots
+    const response = await sharedServices.get({
       userId: req.user.id,
       limit,
       offset: (page - 1) * limit
     })
     if (!response) {
-      return next(createError(500, 'Get favorite kahoots failure'))
+      return next(createError(500, 'Get shared kahoots failure'))
     }
 
     return res.status(200).json({
@@ -30,12 +29,12 @@ const getFavoriteKahootsController = async (req: Request, res: Response, next: N
         })),
         is_over: response.length < limit
       },
-      message: 'Get favorite kahoots successfully'
+      message: 'Get shared kahoots successfully'
     })
   } catch (error) {
-    logging.error('Get favorite kahoots controller has error:', error)
-    return next(createError(500))
+    logging.error('Get shared kahoots controller has error:', error)
+    return next(createError(500, 'Get shared kahoots failure'))
   }
 }
 
-export default getFavoriteKahootsController
+export default getSharedKahootsController

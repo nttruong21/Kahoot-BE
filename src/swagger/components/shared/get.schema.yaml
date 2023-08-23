@@ -1,0 +1,35 @@
+components:
+  schemas:
+    # [Response]
+    GetSharedKahootsListResponse:
+      type: object
+      description: Get shared kahoots list response
+      properties:
+        kahoots:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              sharedKahootId:
+                type: number
+              coverImage:
+                type: string
+                nullable: true
+              title:
+                type: string
+              visibleScope:
+                type: string
+              createdAt:
+                type: number
+              numberOfQuestion:
+                type: number
+              userId:
+                type: number
+              username:
+                type: string
+              userImage:
+                type: string
+        is_over:
+          type: boolean
