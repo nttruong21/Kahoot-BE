@@ -104,7 +104,7 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
     // If this is assignment, get top 5 users
     let topPlayers = null
     if (assignmentId) {
-      const topPlayers = await playServices.getTopPlayers({ assignmentId, limit: 5 })
+      topPlayers = await playServices.getTopPlayers({ assignmentId, limit: 5 })
       if (!topPlayers) {
         return next(createError(500, 'Get top layers failure'))
       }
