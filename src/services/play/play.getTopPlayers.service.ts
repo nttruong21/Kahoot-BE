@@ -24,20 +24,26 @@ const getTopPlayers = async ({
 
     if (kahootId) {
       query = `
-			SELECT plays.id, DISTINCT plays.user_id as userId, plays.point, users.username, users.image as userImage
-			FROM plays, users
-			WHERE plays.kahoot_id = ? AND plays.user_id AND plays.user_id = users.id
-			ORDER BY plays.point DESC LIMIT ?		
+        SELECT p.id, p.user_id as userId, MAX(p.point) as point, u.username, u.image as userImage 
+        FROM plays p 
+        JOIN users u ON p.user_id = u.id 
+        WHERE p.kahoot_id = 18 
+        GROUP BY p.user_id 
+        ORDER BY point DESC 
+        LIMIT ?;
 			`
       params = [kahootId, limit]
     }
 
     if (assignmentId) {
       query = `
-			SELECT DISTINCT p.user_id as userId, p.point, u.username, u.image as userImage 
-      FROM (SELECT DISTINCT plays.user_id FROM plays WHERE plays.assignment_id = ? ORDER BY plays.point DESC) AS distinct_users, plays AS p, users AS u 
-      WHERE distinct_users.user_id = p.user_id AND distinct_users.user_id = u.id 
-      ORDER BY p.point DESC LIMIT ?		
+  			SELECT p.id, p.user_id as userId, MAX(p.point) as point, u.username, u.image as userImage 
+        FROM plays p 
+        JOIN users u ON p.user_id = u.id 
+        WHERE p.assignment_id = ? 
+        GROUP BY p.user_id 
+        ORDER BY point DESC 
+        LIMIT ?;
 			`
       params = [assignmentId, limit]
     }
