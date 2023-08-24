@@ -24,10 +24,10 @@ const getTopPlayers = async ({
 
     if (kahootId) {
       query = `
-			SELECT plays.id, plays.user_id as userId, plays.point, users.username, users.image as userImage
+			SELECT plays.id, DISTINCT plays.user_id as userId, plays.point, users.username, users.image as userImage
 			FROM plays, users
 			WHERE plays.kahoot_id = ? AND plays.user_id AND plays.user_id = users.id
-			ORDER BY POINT LIMIT ?		
+			ORDER BY POINT DESC LIMIT ?		
 			`
       params = [kahootId, limit]
     }

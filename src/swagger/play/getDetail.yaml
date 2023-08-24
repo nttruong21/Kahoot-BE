@@ -6,6 +6,11 @@ paths:
       tags:
         - Play
       parameters:
+        - in: params
+          name: id
+          schema:
+            type: integer
+            required: true
         - in: query
           name: kahootId
           schema:
