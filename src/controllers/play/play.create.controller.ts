@@ -38,7 +38,7 @@ const createPlayController = async (req: Request, res: Response, next: NextFunct
       kahootId,
       assignmentId,
       point,
-      type: kahootId ? 'practice' : 'assignment'
+      type: assignmentId ? 'assignment' : 'practice'
     })
     if (!createdPlayId) {
       return next(createError(500, 'Create play failure'))
