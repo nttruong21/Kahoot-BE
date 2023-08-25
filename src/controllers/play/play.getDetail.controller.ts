@@ -38,13 +38,13 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
       return next(createError(500, 'Get play detail failure'))
     }
 
-    // 2. Get questions by kahoot id
+    // Get questions by kahoot id
     const questions = await questionServices.getQuestionsByKahootId(play.kahootId)
     if (!questions || questions.length === 0) {
       return next(createError(500))
     }
 
-    // 3. Get user answers by play id
+    // Get user answers by play id
     const userAnswers = await playServices.getAnswers({
       playId
     })

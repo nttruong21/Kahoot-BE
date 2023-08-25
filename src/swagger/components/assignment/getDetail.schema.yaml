@@ -2,73 +2,83 @@ components:
   schemas:
     # [Response]
     GetAssignmentDetailResponse:
-      type: object
-      description: Get assignment detail response
-      properties:
-        userId:
-          type: number
-        username:
-          type: string
-        userImage:
-          type: string
-        id:
-          type: number
-        kahootId:
-          type: number
-        coverImage:
-          type: string
-          nullable: true
-        title:
-          type: string
-        theme:
-          type: string
-        description:
-          type: string
-          nullable: true
-        media:
-          type: string
-          nullable: true
-        visibleScope:
-          type: string
-        questions:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-              type:
-                type: string
-              media:
-                type: string
-                nullable: true
-              timeLimit:
-                type: number
-                description: in seconds
-              point:
-                type: number
-              question:
-                type: string
-              answer:
-                type: boolean
-                nullable: true
-              inOrder:
-                type: number
-              answers:
-                type: array
-                nullable: true
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    text:
-                      type: string
-                      nullable: true
-                    image:
-                      type: string
-                      nullable: true
-                    isCorrect:
-                      type: boolean
-                    inOrder:
-                      type: number
+      oneOf:
+        - type: object
+          properties:
+            isPlayed:
+              type: boolean
+            userId:
+              type: number
+            username:
+              type: string
+            userImage:
+              type: string
+            id:
+              type: number
+            kahootId:
+              type: number
+            coverImage:
+              type: string
+              nullable: true
+            title:
+              type: string
+            theme:
+              type: string
+            description:
+              type: string
+              nullable: true
+            media:
+              type: string
+              nullable: true
+            visibleScope:
+              type: string
+            questions:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  type:
+                    type: string
+                  media:
+                    type: string
+                    nullable: true
+                  timeLimit:
+                    type: number
+                    description: in seconds
+                  point:
+                    type: number
+                  question:
+                    type: string
+                  answer:
+                    type: boolean
+                    nullable: true
+                  inOrder:
+                    type: number
+                  answers:
+                    type: array
+                    nullable: true
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        text:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          nullable: true
+                        isCorrect:
+                          type: boolean
+                        inOrder:
+                          type: number
+        - type: object
+          properties:
+            isPlayed:
+              type: boolean
+            playId:
+              type: number
+            assignmentId:
+              type: number

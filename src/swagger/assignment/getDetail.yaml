@@ -7,10 +7,6 @@ paths:
         - Assignment
       parameters:
         - in: query
-          name: id
-          schema:
-            type: integer
-        - in: query
           name: pin
           schema:
             type: string

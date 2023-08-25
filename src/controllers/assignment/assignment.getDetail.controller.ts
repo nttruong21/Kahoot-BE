@@ -6,6 +6,7 @@ import * as assignmentServices from '../../services/assignment/assignment.index.
 import * as kahootServices from '../../services/kahoot/kahoot.index.service'
 import * as questionServices from '../../services/question/question.index.service'
 import * as answerServices from '../../services/answer/answer.index.service'
+import * as playServices from '../../services/play/play.index.service'
 
 const getAssignmentDetailController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,44 +25,59 @@ const getAssignmentDetailController = async (req: Request, res: Response, next: 
       return next(createError(500, `Can not find kahoot id with this pin: ${pin}`))
     }
 
-    // Get kahoot detail
-    // Get kahoot by id
-    const kahoot = await kahootServices.getKahoot({ kahootId: assignment.kahoot_id })
-    if (!kahoot) {
-      return next(createError(500, 'Get kahoot failure'))
-    }
-
-    // Get questions by kahoot id
-    const questions = await questionServices.getQuestionsByKahootId(assignment.kahoot_id)
-    if (!questions || questions.length === 0) {
-      return next(createError(500, 'Get questions failure'))
-    }
-
-    // Check question, id type = quiz -> get answers
-    await Promise.all(
-      questions.map(async (question) => {
-        if (question.type === QuestionType.quiz) {
-          // Get answers
-          const answers = await answerServices.getAnswers(question.id!)
-          if (!answers || answers.length === 0) {
-            return next(createError(500))
-          }
-          question.answers = answers
-        }
+    // Get play by assignment id and user id
+    const play = await playServices.getDetail({ userId: req.user.id, assignmentId: assignment.id })
+    if (play) {
+      return res.status(200).json({
+        code: 200,
+        success: true,
+        data: {
+          playId: play.id,
+          assignmentId: assignment.id,
+          isPlayed: true
+        },
+        message: 'Get assignment detail successfully'
       })
-    )
+    } else {
+      // Get kahoot detail
+      // Get kahoot by id
+      const kahoot = await kahootServices.getKahoot({ kahootId: assignment.kahoot_id })
+      if (!kahoot) {
+        return next(createError(500, 'Get kahoot failure'))
+      }
 
-    return res.status(200).json({
-      code: 200,
-      success: true,
-      data: {
-        ...kahoot,
-        id: assignment.id,
-        kahootId: kahoot.id,
-        questions: questions
-      },
-      message: 'Get assignment detail successfully'
-    })
+      // Get questions by kahoot id
+      const questions = await questionServices.getQuestionsByKahootId(assignment.kahoot_id)
+      if (!questions || questions.length === 0) {
+        return next(createError(500, 'Get questions failure'))
+      }
+
+      // Check question, id type = quiz -> get answers
+      await Promise.all(
+        questions.map(async (question) => {
+          if (question.type === QuestionType.quiz) {
+            // Get answers
+            const answers = await answerServices.getAnswers(question.id!)
+            if (!answers || answers.length === 0) {
+              return next(createError(500))
+            }
+            question.answers = answers
+          }
+        })
+      )
+
+      return res.status(200).json({
+        code: 200,
+        success: true,
+        data: {
+          ...kahoot,
+          id: assignment.id,
+          kahootId: kahoot.id,
+          questions: questions
+        },
+        message: 'Get assignment detail successfully'
+      })
+    }
   } catch (error) {
     logging.error('Get assignment detail controller has error:', error)
     return next(createError(500, 'Get assignment detail failure'))

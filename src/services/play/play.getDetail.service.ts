@@ -2,9 +2,10 @@ import { executeQuery } from '../../configs/database.config'
 import logging from '../../utils/logging.util'
 
 interface Args {
-  playId: number
+  playId?: number
   kahootId?: number
   assignmentId?: number
+  userId?: number
 }
 
 interface Response {
@@ -15,9 +16,9 @@ interface Response {
   coverImage: string
 }
 
-const getPlayDetailService = async ({ playId, kahootId, assignmentId }: Args): Promise<Response | null> => {
+const getPlayDetailService = async ({ playId, kahootId, assignmentId, userId }: Args): Promise<Response | null> => {
   try {
-    if (kahootId) {
+    if (playId && kahootId) {
       const query = `
         SELECT plays.id, plays.kahoot_id AS kahootId, plays.point, kahoots.title, kahoots.cover_image AS coverImage
         FROM plays, kahoots
@@ -28,7 +29,7 @@ const getPlayDetailService = async ({ playId, kahootId, assignmentId }: Args): P
       return response ? response[0] : null
     }
 
-    if (assignmentId) {
+    if (playId && assignmentId) {
       const query = `
         SELECT plays.id, plays.kahoot_id AS kahootId, plays.point, kahoots.title, kahoots.cover_image AS coverImage
         FROM plays, kahoots, assignments
@@ -36,6 +37,18 @@ const getPlayDetailService = async ({ playId, kahootId, assignmentId }: Args): P
         LIMIT 1
       `
       const params = [playId, assignmentId]
+      const response = await executeQuery<Response[]>(query, params)
+      return response ? response[0] : null
+    }
+
+    if (userId && assignmentId) {
+      const query = `
+        SELECT plays.id, plays.kahoot_id AS kahootId, plays.point, kahoots.title, kahoots.cover_image AS coverImage
+        FROM plays, kahoots, assignments
+        WHERE plays.user_id = ? AND plays.assignment_id = ? AND plays.assignment_id = assignments.id AND assignments.kahoot_id = kahoots.id
+        LIMIT 1
+      `
+      const params = [userId, assignmentId]
       const response = await executeQuery<Response[]>(query, params)
       return response ? response[0] : null
     }
