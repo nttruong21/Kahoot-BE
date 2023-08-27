@@ -17,7 +17,7 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
 
     const result: Array<{
       id: number
-      name: string
+      username: string
       kahoots: KahootSummary[]
     }> = []
 
@@ -29,7 +29,7 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
         }
         result.push({
           id: parseInt(user.id.toString()),
-          name: user.name,
+          username: user.username,
           kahoots: kahootsResponse.map((kahoot) => ({
             ...kahoot,
             numberOfQuestion: Number(kahoot.numberOfQuestion)

@@ -10,6 +10,7 @@ import * as accountServices from '../../../services/account/account.index.servic
 import * as userServices from '../../../services/user/user.index.service'
 import { TokenPayload } from '../../../types/tokenPayload.type'
 import { AccountType } from '../../../enums/account.enum'
+import generateUsername from '../../../utils/generateUsername.util'
 
 type RequestBody = {
   googleId: string
@@ -69,8 +70,7 @@ const googleSignInController = async (req: Request, res: Response, next: NextFun
       }
     } else {
       // Create random username
-      const randomUsername =
-        googlePayload.name?.toLocaleLowerCase().split(' ').join('-') + '-' + otpGenerator.generate(6)
+      const randomUsername = generateUsername(`${googlePayload.name} ${otpGenerator.generate(6)}`)
 
       // Create account
       const dateNow = new Date()
