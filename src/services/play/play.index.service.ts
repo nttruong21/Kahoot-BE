@@ -7,3 +7,5 @@ export { default as create } from './play.create.service'
 export { default as createPlayAnswers } from './play.createPlayAnswers.service'
 
 export { default as countPlayerOfKahoot } from './play.countPlayerOfKahoot.service'
+export { default as countPlayOfUser } from './play.countPlayOfUser.service'
+export { default as countPlayersOfUser } from './play.countPlayersOfUser.service'

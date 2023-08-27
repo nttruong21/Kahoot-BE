@@ -3,7 +3,7 @@ import logging from '../../utils/logging.util'
 
 interface Response {
   id: number
-  name: string
+  username: string
   image: string
   numberOfKahoots: number
 }
@@ -11,7 +11,7 @@ interface Response {
 const getUserDetail = async ({ userId }: { userId: number }) => {
   try {
     const query = `
-      SELECT users.id, users.name, users.image, COUNT(kahoots.id) as numberOfKahoots 
+      SELECT users.id, users.username, users.image, COUNT(kahoots.id) as numberOfKahoots 
       FROM users 
       LEFT JOIN kahoots ON kahoots.user_id = users.id 
       WHERE users.id = ?
