@@ -6,7 +6,7 @@ const CountPlayOfUserService = async ({ userId }: { userId: number }) => {
     const query = 'SELECT id, COUNT(*) as count FROM plays WHERE user_id = ?'
     const params = [userId]
     const response = await executeQuery<Array<{ id: number; count: number }>>(query, params)
-    return response ? response[0].count : null
+    return response ? parseInt(response[0].count.toString()) : null
   } catch (error) {
     logging.error('Count play of user service has error:', error)
     throw error

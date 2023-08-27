@@ -15,15 +15,17 @@ const getUserDetailController = async (req: Request, res: Response, next: NextFu
     const userDetailResponse = await userServices.getDetail({
       userId
     })
-    if (!userDetailResponse) {
+    if (!userDetailResponse || !userDetailResponse.id) {
       return next(createError(500))
     }
 
     // Count plays of user
     const numberOfPlays = await playServices.countPlayOfUser({ userId })
+    console.log(numberOfPlays)
 
     // Count players of user
     const numberOfPlayers = await playServices.countPlayersOfUser({ userId })
+    console.log(numberOfPlayers)
 
     return res.status(200).json({
       code: 200,
