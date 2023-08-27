@@ -12,6 +12,7 @@ import * as questionServices from '../../../services/question/question.index.ser
 import * as answerServices from '../../../services/answer/answer.index.service'
 
 const updateKahootController = (req: Request, res: Response, next: NextFunction) => {
+  console.log('Start to update kahoot ...')
   try {
     myFormidable.parse(req, async (err, fields, files) => {
       if (err) {
@@ -83,7 +84,7 @@ const updateKahootController = (req: Request, res: Response, next: NextFunction)
       // Check kahoot flag
       if (kahootBodyData['flag'] === 'edited') {
         // Update kahoot
-        if (!kahootBodyDataConverted.coverImage.startsWith('https')) {
+        if (kahootBodyDataConverted.coverImage && !kahootBodyDataConverted.coverImage.startsWith('https')) {
           kahootBodyDataConverted.coverImage = await uploadImage(kahootBodyDataConverted.coverImage)
         }
         await kahootServices.updateKahoot(kahootBodyDataConverted)
