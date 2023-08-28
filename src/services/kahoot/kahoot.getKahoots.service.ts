@@ -31,7 +31,7 @@ const getKahootsService = async (args: {
 				WHERE questions.kahoot_id = kahoots.id 
 				GROUP BY kahoots.id
 				LIMIT ? OFFSET ?`
-      const params = [args.scope, args.sessionUserId, args.limit, args.offset]
+      const params = [args.scope, args.sessionUserId ?? -1, args.limit, args.offset]
       return await executeQuery<KahootSummary[]>(query, params)
     }
 
