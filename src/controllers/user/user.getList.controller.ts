@@ -23,7 +23,12 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
 
     await Promise.all(
       usersResponse.map(async (user) => {
-        const kahootsResponse = await kahootServices.getKahoots({ userId: user.id, limit: 5, offset: 0 })
+        const kahootsResponse = await kahootServices.getKahoots({
+          sessionUserId: req.user && req.user.id ? req.user.id : null,
+          userId: user.id,
+          limit: 5,
+          offset: 0
+        })
         if (!kahootsResponse) {
           throw new Error('Can not get kahoots list of user')
         }
