@@ -4,6 +4,7 @@ import { executeQuery } from '../../configs/database.config'
 import { KahootSummary } from '../../types/kahoot.type'
 
 const getKahootsService = async (args: {
+  sessionUserId: number | null
   userId?: number
   scope?: VisibleScope
   offset: number
@@ -27,10 +28,10 @@ const getKahootsService = async (args: {
       const query = `SELECT kahoots.id, kahoots.cover_image AS coverImage, kahoots.title, kahoots.created_at as createdAt, kahoots.visible_scope as visibleScope, kahoots.user_id as userId, users.username, users.image as userImage, COUNT(questions.id) AS numberOfQuestion
         FROM questions
         LEFT JOIN (users, kahoots) ON (kahoots.visible_scope = ? AND kahoots.user_id = users.id)
-				WHERE questions.kahoot_id = kahoots.id
+				WHERE questions.kahoot_id = kahoots.id AND kahoots.user_id != ?
 				GROUP BY kahoots.id
 				LIMIT ? OFFSET ?`
-      const params = [args.scope, args.limit, args.offset]
+      const params = [args.scope, args.sessionUserId, args.limit, args.offset]
       return await executeQuery<KahootSummary[]>(query, params)
     }
 

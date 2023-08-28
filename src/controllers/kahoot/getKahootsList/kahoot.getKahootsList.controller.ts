@@ -23,6 +23,7 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
 
     // Get public kahoots
     const kahootsResponse = await kahootServices.getKahoots({
+      sessionUserId: req.user && req.user.id ? req.user.id : null,
       scope: VisibleScope.public,
       userId,
       offset: (page - 1) * limit,
