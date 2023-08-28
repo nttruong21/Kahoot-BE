@@ -9,7 +9,7 @@ const getKahootsService = async (args: {
   scope?: VisibleScope
   offset: number
   limit: number
-}): Promise<KahootSummary[] | undefined> => {
+}): Promise<KahootSummary[] | null> => {
   try {
     // Get by user id
     if (args.userId) {
@@ -46,6 +46,8 @@ const getKahootsService = async (args: {
       const params = [args.scope, args.userId, args.limit, args.offset]
       return await executeQuery<KahootSummary[]>(query, params)
     }
+
+    return null
   } catch (error) {
     logging.error('Get kahoots service has error', error)
     throw error
