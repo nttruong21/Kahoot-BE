@@ -18,6 +18,7 @@ const getOwnKahootsListController = async (req: Request, res: Response, next: Ne
 
     // Get own kahoots
     const kahootsResponse = await kahootServices.getKahoots({
+      sessionUserId: req.user.id,
       userId: req.user.id,
       offset: (page - 1) * limit,
       limit
