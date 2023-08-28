@@ -15,9 +15,7 @@ const toLowerCaseNonAccentVietnamese = (str: string) => {
 
 const generateUsername = (text: string) => {
   let slug = text.split(' ').join('.')
-  return toLowerCaseNonAccentVietnamese(slug)
-    .replace(/[^0-9a-zA-Z-]/g, '')
-    .replace(/.+/g, '.') // Remove "." next by next
+  return toLowerCaseNonAccentVietnamese(slug).replace(/[^0-9a-zA-Z-]/g, '')
 }
 
 export default generateUsername
