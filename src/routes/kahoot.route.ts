@@ -5,7 +5,7 @@ import * as middlewares from '../middlewares/index.middleware'
 
 const kahootRouter = Router()
 
-kahootRouter.get('/list', KahootController.getKahootsList)
+kahootRouter.get('/list', middlewares.verifyUser, KahootController.getKahootsList)
 kahootRouter.get('/list/own', middlewares.validateAccessToken, KahootController.getOwnKahootsList)
 kahootRouter.get('/detail/:id', KahootController.getKahootDetail)
 kahootRouter.post('/', middlewares.validateAccessToken, KahootController.createKahoot)

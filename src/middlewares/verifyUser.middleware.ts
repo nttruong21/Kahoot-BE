@@ -21,11 +21,7 @@ const validateAccessToken = async (req: Request, res: Response, next: NextFuncti
     try {
       jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, function (err: any, decoded: any) {
         if (err) {
-          if (err.name === 'TokenExpiredError') {
-            return next(createError(403, 'Token expired error'))
-          } else {
-            return next(createError(401, 'Token verification has error'))
-          }
+          return next()
         }
 
         const { id } = decoded
