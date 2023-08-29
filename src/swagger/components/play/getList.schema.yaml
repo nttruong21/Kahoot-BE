@@ -11,6 +11,11 @@ components:
           type: number
         type:
           type: string
+          description: practice/assignment
+        point:
+          type: number
+        numberOfPlayer:
+          type: number
         createdAt:
           type: number
         kahootId:

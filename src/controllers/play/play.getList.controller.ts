@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 
 import logging from '../../utils/logging.util'
-import { PlaySummary } from '../../types/play.type'
+import { PlaySummary, PlayType } from '../../types/play.type'
 import * as playServices from '../../services/play/play.index.service'
 import * as kahootServices from '../../services/kahoot/kahoot.index.service'
 
@@ -16,17 +16,17 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
 
     await Promise.all(
       plays.map(async (play) => {
-        if (play.kahootId) {
+        if (play.type === PlayType.practice) {
           // Get kahoot by id
           const kahoot = await kahootServices.getKahoot({
-            kahootId: play.kahootId
+            kahootId: play.kahootId!
           })
           if (!kahoot) {
             return next(createError(500, 'Get kahoot failure'))
           }
 
           // Get number of players
-          const numberOfPlayer = await playServices.countPlayerOfKahoot(play.kahootId)
+          const numberOfPlayer = await playServices.countPlayerOfKahoot(play.kahootId!)
 
           data.push({
             id: play.id,
@@ -35,12 +35,14 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
             assignmentId: null,
+            type: play.type,
+            point: play.point,
             numberOfPlayer
           })
-        } else if (play.assignmentId) {
+        } else if (play.type === PlayType.assignment) {
           // Get kahoot by assignment
           const kahoot = await kahootServices.getKahoot({
-            assignmentId: play.assignmentId
+            assignmentId: play.assignmentId!
           })
           if (!kahoot) {
             return next(createError(500, 'Get kahoot failure'))
@@ -56,6 +58,8 @@ const getPlaysListController = async (req: Request, res: Response, next: NextFun
             kahootId: play.kahootId,
             kahootTitle: kahoot.title,
             assignmentId: play.assignmentId,
+            type: play.type,
+            point: play.point,
             numberOfPlayer
           })
         }

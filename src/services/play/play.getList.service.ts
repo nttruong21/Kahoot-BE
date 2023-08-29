@@ -23,7 +23,7 @@ const getPlaysListService = async ({ userId }: Args): Promise<Response[]> => {
 			WHERE plays.user_id = ? 
 			ORDER BY createdAt DESC`
     const params = [userId]
-    return await executeQuery(query, params)
+    return await executeQuery<Response[]>(query, params)
   } catch (error) {
     logging.error('Get plays list service has error:', error)
     throw error
