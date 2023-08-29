@@ -20,7 +20,7 @@ const getKahootService = async (args: {
     if (args.assignmentId) {
       const query = `SELECT kahoots.id, user_id as userId, users.username, users.image as userImage, cover_image as coverImage, title, theme, description, media, visible_scope as visibleScope 
         FROM kahoots, users, assignments 
-        WHERE assignments.id = ? AND assignments.kahoot_id = kahoots.id = users.id = kahoots.user_id LIMIT 1`
+        WHERE assignments.id = ? AND assignments.kahoot_id = kahoots.id AND users.id = kahoots.user_id LIMIT 1`
       const params = [args.assignmentId]
       const response = await executeQuery<Kahoot[]>(query, params)
       return response ? response[0] : null
@@ -29,7 +29,7 @@ const getKahootService = async (args: {
     if (args.playId) {
       const query = `SELECT kahoots.id, user_id as userId, users.username, users.image as userImage, cover_image as coverImage, title, theme, description, media, visible_scope as visibleScope 
         FROM kahoots, users, plays 
-        WHERE plays.id = ? AND plays.kahoot_id = kahoots.id = users.id = kahoots.user_id LIMIT 1`
+        WHERE plays.id = ? AND plays.kahoot_id = kahoots.id AND users.id = kahoots.user_id LIMIT 1`
       const params = [args.playId]
       const response = await executeQuery<Kahoot[]>(query, params)
       return response ? response[0] : null
