@@ -7,7 +7,7 @@ const updateKahootService = async (kahoot: Kahoot): Promise<void> => {
     const query =
       'UPDATE kahoots SET cover_image = ?, title = ?, theme = ?, description = ?, media = ?, visible_scope = ? WHERE id = ?'
     const params = [
-      kahoot.coverImage,
+      kahoot.coverImage ? kahoot.coverImage : null,
       kahoot.title,
       kahoot.theme,
       kahoot.description,

@@ -8,7 +8,7 @@ const createKahootService = async (kahoot: Kahoot): Promise<number | null> => {
       'INSERT INTO kahoots(user_id, cover_image, title, theme, description, media, visible_scope, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
     const params = [
       kahoot.userId,
-      kahoot.coverImage,
+      kahoot.coverImage ? kahoot.coverImage : null,
       kahoot.title,
       kahoot.theme,
       kahoot.description,
