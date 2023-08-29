@@ -18,7 +18,7 @@ const getKahootService = async (args: {
     }
 
     if (args.assignmentId) {
-      const query = `SELECT kahoots.id, user_id as userId, users.username, users.image as userImage, cover_image as coverImage, title, theme, description, media, visible_scope as visibleScope 
+      const query = `SELECT kahoots.id, kahoots.user_id as userId, users.username, users.image as userImage, cover_image as coverImage, title, theme, description, media, visible_scope as visibleScope 
         FROM kahoots, users, assignments 
         WHERE assignments.id = ? AND assignments.kahoot_id = kahoots.id AND users.id = kahoots.user_id LIMIT 1`
       const params = [args.assignmentId]
