@@ -7,7 +7,7 @@ import * as favoritesServices from '../../services/favorites/favorites.index.ser
 const getFavoriteKahootsController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = req.query['page'] ? +req.query['page'] : 1
-    const limit = req.query['limit'] ? +req.query['limit'] : 5
+    const limit = req.query['limit'] ? +req.query['limit'] : 999
 
     // Get favorite kahoots
     const response = await favoritesServices.get({
