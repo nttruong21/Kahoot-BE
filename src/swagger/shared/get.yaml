@@ -17,7 +17,7 @@ paths:
           name: limit
           schema:
             type: integer
-            default: 5
+            default: 999
       responses:
         '200':
           description: OK

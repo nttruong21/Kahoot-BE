@@ -1,0 +1,42 @@
+components:
+  schemas:
+    SearchResponseData:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              username:
+                type: string
+              name:
+                type: string
+              image:
+                type: string
+        kahoots:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              coverImage:
+                type: string
+                nullable: true
+              title:
+                type: string
+              createdAt:
+                type: number
+              visibleScope:
+                type: string
+              userId:
+                type: number
+              username:
+                type: string
+              userImage:
+                type: string
+              numberOfQuestion:
+                type: number

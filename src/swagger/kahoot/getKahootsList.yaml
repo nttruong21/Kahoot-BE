@@ -15,7 +15,7 @@ paths:
           name: limit
           schema:
             type: integer
-            default: 5
+            default: 999
         - in: query
           name: userId
           schema:

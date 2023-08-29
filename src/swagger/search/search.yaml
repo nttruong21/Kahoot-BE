@@ -1,13 +1,16 @@
 paths:
-  /api/v1/favorites:
+  /api/v1/search:
     get:
-      summary: Get favorite kahoots
-      description: Get favorite kahoots
+      summary: Search
+      description: Search
       tags:
-        - Favorites
-      security:
-        - bearerAuth: []
+        - Search
       parameters:
+        - in: query
+          name: k
+          schema:
+            type: string
+          required: true
         - in: query
           name: page
           schema:
@@ -32,10 +35,10 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/GetFavoriteKahootsListResponse'
+                    $ref: '#/components/schemas/SearchResponseData'
                   message:
                     type: string
-                    example: 'Get favorite kahoots successfully'
+                    example: 'Get shared kahoots successfully'
 
         '500':
           description: Internal Server Error
