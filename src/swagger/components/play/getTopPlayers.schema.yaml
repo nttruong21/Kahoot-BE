@@ -1,0 +1,17 @@
+components:
+  schemas:
+    # [Body data]
+    GetTopPlayersResponseData:
+      type: object
+      description: Get top players response data
+      properties:
+        id:
+          type: number
+        userId:
+          type: number
+        point:
+          type: number
+        username:
+          type: string
+        userImage:
+          type: string

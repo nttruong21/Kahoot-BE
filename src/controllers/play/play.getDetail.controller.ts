@@ -39,7 +39,7 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
     }
 
     // Get questions by kahoot id
-    const questions = await questionServices.getQuestionsByKahootId(play.kahootId)
+    const questions = await questionServices.getQuestions({ kahootId: play.kahootId })
     if (!questions || questions.length === 0) {
       return next(createError(500))
     }
@@ -106,7 +106,7 @@ const getPlayDetailController = async (req: Request, res: Response, next: NextFu
     if (assignmentId) {
       topPlayers = await playServices.getTopPlayers({ assignmentId, limit: 5 })
       if (!topPlayers) {
-        return next(createError(500, 'Get top layers failure'))
+        return next(createError(500, 'Get top players failure'))
       }
     }
 

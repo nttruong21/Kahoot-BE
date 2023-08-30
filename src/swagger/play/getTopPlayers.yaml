@@ -1,0 +1,44 @@
+paths:
+  /api/v1/plays/top-players:
+    get:
+      summary: Get top players
+      description: Get top players
+      tags:
+        - Play
+      parameters:
+        - in: query
+          name: assignmentId
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/GetTopPlayersResponseData'
+                  message:
+                    type: string
+                    example: 'Get plays list successfully'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

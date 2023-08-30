@@ -27,7 +27,7 @@ const getTopPlayers = async ({
         SELECT p.id, p.user_id as userId, MAX(p.point) as point, u.username, u.image as userImage 
         FROM plays p 
         JOIN users u ON p.user_id = u.id 
-        WHERE p.kahoot_id = 18 
+        WHERE p.kahoot_id = ? 
         GROUP BY p.user_id 
         ORDER BY point DESC 
         LIMIT ?;

@@ -47,7 +47,7 @@ const getAssignmentDetailController = async (req: Request, res: Response, next: 
       }
 
       // Get questions by kahoot id
-      const questions = await questionServices.getQuestionsByKahootId(assignment.kahoot_id)
+      const questions = await questionServices.getQuestions({ kahootId: assignment.kahoot_id })
       if (!questions || questions.length === 0) {
         return next(createError(500, 'Get questions failure'))
       }
@@ -71,6 +71,7 @@ const getAssignmentDetailController = async (req: Request, res: Response, next: 
         success: true,
         data: {
           ...kahoot,
+          isPlayed: false,
           id: assignment.id,
           kahootId: kahoot.id,
           questions: questions
