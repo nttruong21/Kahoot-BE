@@ -5,6 +5,8 @@ paths:
       description: Get assignments list
       tags:
         - Assignment
+      security:
+        - bearerAuth: []
       parameters:
         - in: query
           name: page
