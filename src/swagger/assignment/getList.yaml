@@ -1,0 +1,48 @@
+paths:
+  /api/v1/assignments/list:
+    get:
+      summary: Get assignments list
+      description: Get assignments list
+      tags:
+        - Assignment
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: number
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: number
+            default: 999
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/GetAssignmentsListResponse'
+                  message:
+                    type: string
+                    example: 'Get assignment detail successfully'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error

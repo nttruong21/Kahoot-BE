@@ -1,0 +1,31 @@
+components:
+  schemas:
+    # [Response]
+    GetAssignmentsListResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        kahootId:
+          type: number
+        pin:
+          type: string
+        expiredAt:
+          type: number
+        createdAt:
+          type: number
+        coverImage:
+          type: string
+          nullable: true
+        title:
+          type: string
+        visibleScope:
+          type: string
+        userId:
+          type: number
+        username:
+          type: string
+        userImage:
+          type: string
+        numberOfQuestion:
+          type: number
