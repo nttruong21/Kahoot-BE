@@ -24,7 +24,7 @@ const getKahootDetailController = async (req: Request, res: Response, next: Next
     }
 
     // 2. Get questions by kahoot id
-    const questions = await questionServices.getQuestionsByKahootId(kahootId)
+    const questions = await questionServices.getQuestions({ kahootId })
     if (!questions || questions.length === 0) {
       return next(createError(500))
     }
