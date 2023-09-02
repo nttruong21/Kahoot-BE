@@ -1,4 +1,5 @@
 import { executeQuery } from '../../configs/database.config'
+import { PlayType } from '../../types/play.type'
 import logging from '../../utils/logging.util'
 
 interface Args {
@@ -10,6 +11,7 @@ interface Args {
 
 interface Response {
   id: number
+  type: PlayType
   kahootId: number
   point: number
   title: string
@@ -31,7 +33,7 @@ const getPlayDetailService = async ({ playId, kahootId, assignmentId, userId }: 
 
     if (playId && assignmentId) {
       const query = `
-        SELECT plays.id, plays.kahoot_id AS kahootId, plays.point, kahoots.title, kahoots.cover_image AS coverImage
+        SELECT plays.id, plays.kahoot_id AS kahootId, plays.point, plays.type, kahoots.title, kahoots.cover_image AS coverImage
         FROM plays, kahoots, assignments
         WHERE plays.id = ? AND plays.assignment_id = ? AND plays.assignment_id = assignments.id AND assignments.kahoot_id = kahoots.id
         LIMIT 1

@@ -7,6 +7,9 @@ components:
       properties:
         id:
           type: number
+        type:
+          type: string
+          description: practice/assignment
         kahootId:
           type: number
         assignmentId:

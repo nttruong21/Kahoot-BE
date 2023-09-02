@@ -1,4 +1,5 @@
 import { executeQuery } from '../../configs/database.config'
+import { PlayType } from '../../types/play.type'
 import logging from '../../utils/logging.util'
 
 interface Args {
@@ -11,7 +12,7 @@ interface Response {
   createdAt: Date
   kahootId: number | null
   assignmentId: number | null
-  type: string
+  type: PlayType
   point: number
 }
 
