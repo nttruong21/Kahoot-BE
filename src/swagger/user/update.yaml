@@ -1,0 +1,59 @@
+paths:
+  /api/v1/users:
+    put:
+      summary: Update user
+      description: Update user
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                userImage:
+                  type: string
+                images:
+                  type: File
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      username:
+                        type: string
+                      image:
+                        type: string
+                  message:
+                    type: string
+                    example: 'Update user successfully'
+
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: 500
+                success: false
+                data: {}
+                message: Internal Server Error
