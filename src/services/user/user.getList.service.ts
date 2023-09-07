@@ -15,9 +15,9 @@ const getUsersList = async ({
       SELECT users.id, users.username, COUNT(kahoots.id) AS number
       FROM users
       INNER JOIN kahoots ON users.id = kahoots.user_id
+      WHERE users.id != ?
       GROUP BY users.id
       HAVING number > 0
-      WHERE users.id != ? 
       LIMIT ? OFFSET ?
     `
     const params = [sessionUserId ?? -1, limit, offset]
