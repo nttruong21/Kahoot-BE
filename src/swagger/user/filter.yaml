@@ -5,6 +5,8 @@ paths:
       description: Filter users.
       tags:
         - User
+      security:
+        - bearerAuth: []
       parameters:
         - in: query
           name: k
@@ -20,7 +22,7 @@ paths:
           name: limit
           schema:
             type: integer
-            default: 5
+            default: 999
       responses:
         '200':
           description: OK

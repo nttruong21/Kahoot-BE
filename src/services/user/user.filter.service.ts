@@ -21,7 +21,7 @@ const filterUsersService = async ({
 }) => {
   try {
     const query = 'SELECT id, username, name, image FROM users WHERE username LIKE (?) AND id != ? LIMIT ? OFFSET ?'
-    const params = [`%${keyword}%`, currentUserId, limit, offset]
+    const params = [`%${keyword}%`, currentUserId ?? -1, limit, offset]
     const response = await executeQuery<User[]>(query, params)
     return response ? response : null
   } catch (error) {
