@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import createError from 'http-errors'
 import jwt from 'jsonwebtoken'
 
 const validateAccessToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

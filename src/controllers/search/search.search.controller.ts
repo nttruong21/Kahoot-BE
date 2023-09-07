@@ -6,9 +6,13 @@ import { VisibleScope } from '../../enums/kahoot.enum'
 
 const searchController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const searchKey = req.query.k ? req.query.k.toString().trim() : null
+    const searchKey = req.query.k ? req.query.k.toString().trim().toLowerCase() : null
     const page = req.query['page'] ? +req.query['page'] : 1
     const limit = req.query['limit'] ? +req.query['limit'] : 999
+
+    if (!Number.isInteger(page) || !Number.isInteger(limit)) {
+      return next(createError(400, 'Invalid page or limit value'))
+    }
     if (!searchKey) {
       return next(createError(400, 'Invalid search key'))
     }
