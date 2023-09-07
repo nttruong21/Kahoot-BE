@@ -21,6 +21,7 @@ const getUsersList = async ({
       LIMIT ? OFFSET ?
     `
     const params = [sessionUserId ?? -1, limit, offset]
+    console.log(params)
     return executeQuery<{ id: number; username: string }[]>(query, params)
   } catch (error) {
     logging.error('Get users list service has error:', error)

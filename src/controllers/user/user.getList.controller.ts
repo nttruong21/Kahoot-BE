@@ -14,8 +14,6 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
       return next(createError(400, 'Invalid page or limit value'))
     }
 
-    console.log(req.user)
-
     const usersResponse = await userServices.getList({
       limit,
       offset: (page - 1) * limit,
