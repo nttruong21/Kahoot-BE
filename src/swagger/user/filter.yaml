@@ -1,11 +1,16 @@
 paths:
-  /api/v1/users/list:
+  /api/v1/users/filter:
     get:
-      summary: Get users list
-      description: Get users list.
+      summary: Filter users
+      description: Filter users.
       tags:
         - User
       parameters:
+        - in: query
+          name: k
+          schema:
+            type: string
+          required: true
         - in: query
           name: page
           schema:
@@ -15,7 +20,7 @@ paths:
           name: limit
           schema:
             type: integer
-            default: 999
+            default: 5
       responses:
         '200':
           description: OK
@@ -30,19 +35,21 @@ paths:
                   success:
                     type: boolean
                   data:
-                    type: object
-                    properties:
-                      id:
-                        type: number
-                      username:
-                        type: string
-                      kahoots:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/GetKahootsListResponse'
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        username:
+                          type: string
+                        name:
+                          type: string
+                        image:
+                          type: string
                   message:
                     type: string
-                    example: 'Create kahoot successfully'
+                    example: 'Filter users successfully'
 
         '500':
           description: Internal Server Error

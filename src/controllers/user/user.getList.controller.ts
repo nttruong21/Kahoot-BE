@@ -8,7 +8,11 @@ import { KahootSummary } from '../../types/kahoot.type'
 const getUsersListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = req.query['page'] ? +req.query['page'] : 1
-    const limit = req.query['limit'] ? +req.query['limit'] : 5
+    const limit = req.query['limit'] ? +req.query['limit'] : 999
+
+    if (!Number.isInteger(page) || !Number.isInteger(limit)) {
+      return next(createError(400, 'Invalid page or limit value'))
+    }
 
     const usersResponse = await userServices.getList({ limit, offset: (page - 1) * limit })
     if (!usersResponse) {
@@ -27,7 +31,7 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
           sessionUserId: req.user && req.user.id ? req.user.id : null,
           userId: user.id,
           limit: 5,
-          offset: 0
+          offset: (page - 1) * limit
         })
         if (!kahootsResponse) {
           throw new Error('Can not get kahoots list of user')

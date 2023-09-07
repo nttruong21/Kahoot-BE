@@ -8,10 +8,20 @@ interface User {
   image: string
 }
 
-const filterUsersService = async ({ keyword, currentUserId }: { keyword: string; currentUserId: number }) => {
+const filterUsersService = async ({
+  keyword,
+  currentUserId,
+  limit,
+  offset
+}: {
+  keyword: string
+  currentUserId: number
+  limit: number
+  offset: number
+}) => {
   try {
-    const query = 'SELECT id, username, name, image FROM users WHERE username LIKE (?) AND id != ?'
-    const params = [`%${keyword}%`, currentUserId]
+    const query = 'SELECT id, username, name, image FROM users WHERE username LIKE (?) AND id != ? LIMIT ? OFFSET ?'
+    const params = [`%${keyword}%`, currentUserId, limit, offset]
     const response = await executeQuery<User[]>(query, params)
     return response ? response : null
   } catch (error) {
