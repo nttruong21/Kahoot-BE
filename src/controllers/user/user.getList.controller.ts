@@ -55,7 +55,6 @@ const getUsersListController = async (req: Request, res: Response, next: NextFun
       code: 200,
       success: true,
       data: result,
-      test: req.user.id,
       message: 'Get users list successfully'
     })
   } catch (error) {
