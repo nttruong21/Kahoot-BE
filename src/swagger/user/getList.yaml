@@ -36,6 +36,8 @@ paths:
                         type: number
                       username:
                         type: string
+                      image:
+                        type: string
                       kahoots:
                         type: array
                         items:

@@ -12,7 +12,7 @@ const getUsersList = async ({
 }) => {
   try {
     const query = `
-      SELECT users.id, users.username, COUNT(kahoots.id) AS number
+      SELECT users.id, users.username, users.image, COUNT(kahoots.id) AS number
       FROM users
       INNER JOIN kahoots ON users.id = kahoots.user_id
       WHERE users.id != ?
@@ -22,7 +22,7 @@ const getUsersList = async ({
     `
     const params = [sessionUserId ?? -1, limit, offset]
     console.log(params)
-    return executeQuery<{ id: number; username: string }[]>(query, params)
+    return executeQuery<{ id: number; username: string; image: string }[]>(query, params)
   } catch (error) {
     logging.error('Get users list service has error:', error)
     throw error
