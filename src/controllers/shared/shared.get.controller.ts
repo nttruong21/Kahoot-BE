@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import logging from '../../utils/logging.util'
 import * as sharedServices from '../../services/shared/shared.index.service'
+import * as playServices from '../../services/play/play.index.service'
 
 const getSharedKahootsController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -9,25 +10,34 @@ const getSharedKahootsController = async (req: Request, res: Response, next: Nex
     const limit = req.query['limit'] ? +req.query['limit'] : 999
 
     // Get shared kahoots
-    const response = await sharedServices.get({
+    const kahootsResponse = await sharedServices.get({
       userId: req.user.id,
       limit,
       offset: (page - 1) * limit
     })
-    if (!response) {
+    if (!kahootsResponse) {
       return next(createError(500, 'Get shared kahoots failure'))
     }
+
+    const kahootsData: any = []
+    await Promise.all(
+      kahootsResponse.map(async (kahoot) => {
+        // Get number of players
+        const numberOfPlayer = await playServices.countPlayerOfKahoot(kahoot.id)
+        kahootsData.push({
+          ...kahoot,
+          numberOfPlayer,
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })
+      })
+    )
 
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
-        kahoots: response.map((kahoot) => ({
-          ...kahoot,
-          createdAt: new Date(kahoot.createdAt).getTime(),
-          numberOfQuestion: Number(kahoot.numberOfQuestion)
-        })),
-        is_over: response.length < limit
+        kahoots: kahootsData,
+        is_over: kahootsResponse.length < limit
       },
       message: 'Get shared kahoots successfully'
     })

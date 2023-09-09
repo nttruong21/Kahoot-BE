@@ -31,7 +31,7 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
       limit
     })
     if (!kahootsResponse) {
-      return next(createError(500))
+      return next(createError(500, 'Get kahoots list failure'))
     }
 
     const kahootsData: any = []

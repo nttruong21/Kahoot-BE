@@ -3,6 +3,7 @@ import createError from 'http-errors'
 
 import logging from '../../../utils/logging.util'
 import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
+import * as playServices from '../../../services/play/play.index.service'
 
 const getOwnKahootsListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,18 +25,28 @@ const getOwnKahootsListController = async (req: Request, res: Response, next: Ne
       limit
     })
     if (!kahootsResponse) {
-      return next(createError(500))
+      return next(createError(500, 'Get own kahoots list failure'))
     }
+
+    const kahootsData: any = []
+
+    await Promise.all(
+      kahootsResponse.map(async (kahoot) => {
+        // Get number of players
+        const numberOfPlayer = await playServices.countPlayerOfKahoot(kahoot.id)
+        kahootsData.push({
+          ...kahoot,
+          numberOfPlayer,
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })
+      })
+    )
 
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
-        kahoots: kahootsResponse.map((kahoot) => ({
-          ...kahoot,
-          createdAt: new Date(kahoot.createdAt).getTime(),
-          numberOfQuestion: Number(kahoot.numberOfQuestion)
-        })),
+        kahoots: kahootsData,
         is_over: kahootsResponse.length < limit
       },
       message: 'Get own kahoots list successfully'
