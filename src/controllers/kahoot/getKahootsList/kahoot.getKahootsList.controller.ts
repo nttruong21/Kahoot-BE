@@ -4,6 +4,7 @@ import createError from 'http-errors'
 import logging from '../../../utils/logging.util'
 import { VisibleScope } from '../../../enums/kahoot.enum'
 import * as kahootServices from '../../../services/kahoot/kahoot.index.service'
+import * as playServices from '../../../services/play/play.index.service'
 
 const getKahootsListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,7 +22,7 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
       return next(createError(400, 'Invalid user id'))
     }
 
-    // Get public kahoots
+    // Get kahoots list
     const kahootsResponse = await kahootServices.getKahoots({
       sessionUserId: req.user && req.user.id ? req.user.id : null,
       scope: VisibleScope.public,
@@ -33,17 +34,28 @@ const getKahootsListController = async (req: Request, res: Response, next: NextF
       return next(createError(500))
     }
 
+    const kahootsData: any = []
+
+    await Promise.all(
+      kahootsResponse.map(async (kahoot) => {
+        // Get number of players
+        const numberOfPlayer = await playServices.countPlayerOfKahoot(kahoot.id)
+        kahootsData.push({
+          ...kahoot,
+          numberOfPlayer,
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })
+      })
+    )
+
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
-        kahoots: kahootsResponse.map((kahoot) => ({
-          ...kahoot,
-          numberOfQuestion: Number(kahoot.numberOfQuestion)
-        })),
+        kahoots: kahootsData,
         is_over: kahootsResponse.length < limit
       },
-      message: 'Get public kahoots list successfully'
+      message: 'Get kahoots list successfully'
     })
   } catch (error) {
     logging.error('Get kahoots list controller has error', error)

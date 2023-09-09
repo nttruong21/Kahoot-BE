@@ -23,6 +23,8 @@ components:
                 type: number
               numberOfQuestion:
                 type: number
+              numberOfPlayer:
+                type: number
               userId:
                 type: number
               username:
