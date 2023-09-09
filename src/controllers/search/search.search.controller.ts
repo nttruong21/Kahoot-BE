@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import logging from '../../utils/logging.util'
-import * as searchServices from '../../services/search/search.index.service'
 import { VisibleScope } from '../../enums/kahoot.enum'
+import * as searchServices from '../../services/search/search.index.service'
+import * as playServices from '../../services/play/play.index.service'
 
 const searchController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -40,12 +41,26 @@ const searchController = async (req: Request, res: Response, next: NextFunction)
       return next(createError(500, 'Search kahoots failure'))
     }
 
+    const kahootsData: any = []
+
+    await Promise.all(
+      kahoots.map(async (kahoot) => {
+        // Get number of players
+        const numberOfPlayer = await playServices.countPlayerOfKahoot(kahoot.id)
+        kahootsData.push({
+          ...kahoot,
+          numberOfPlayer,
+          numberOfQuestion: Number(kahoot.numberOfQuestion)
+        })
+      })
+    )
+
     return res.status(200).json({
       code: 200,
       success: true,
       data: {
         users,
-        kahoots
+        kahoots: kahootsData
       },
       message: 'Search successfully'
     })

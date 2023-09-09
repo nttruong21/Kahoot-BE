@@ -40,3 +40,5 @@ components:
                 type: string
               numberOfQuestion:
                 type: number
+              numberOfPlayer:
+                type: number
