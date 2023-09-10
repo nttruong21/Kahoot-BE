@@ -8,7 +8,7 @@ import * as playServices from '../../../services/play/play.index.service'
 const getOwnKahootsListController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = req.query['page'] ? +req.query['page'] : 1
-    const limit = req.query['limit'] ? +req.query['limit'] : 5
+    const limit = req.query['limit'] ? +req.query['limit'] : 999
 
     if (!page || !Number.isInteger(page) || page < 1) {
       return next(createError(400, 'Invalid page'))
